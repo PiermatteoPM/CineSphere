@@ -1,0 +1,7 @@
+.label {
+    -fx-font-size: 40px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e8b910;
+    -fx-font-family: 'Comic Sans MS'; /* Imposta il tipo di carattere a Times New Roman */
+    text-transform: uppercase; /* Trasforma il testo in maiuscolo */
+}

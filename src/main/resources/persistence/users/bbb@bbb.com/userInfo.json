@@ -1,0 +1,10 @@
+{
+  "password": "bbb",
+  "email": "bbb@bbb.com",
+  "username": "bbb",
+  "preferences": [
+    "Fantastico",
+    "Noir"
+  ],
+  "supervisor": false
+}

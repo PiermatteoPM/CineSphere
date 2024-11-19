@@ -1,0 +1,203 @@
+/* styles.css */
+.root {
+    -fx-background-color: #333333; /* Imposta il colore di sfondo */
+}
+
+.button, .label, .text-field {
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+}
+
+#errorField, #errorLabel {
+    -fx-font-size: 16px;
+    -fx-text-fill: red;
+}
+
+/* ----- BOTTONI ----- */
+
+
+.button {
+    -fx-background-color: #e8b910; /* Colore di sfondo verde -fx-background-color: #4CAF50; */
+    -fx-text-fill: white; /* Colore del testo bianco */
+    -fx-alignment: center;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold; /* Imposta il grassetto per il testo del bottone */
+
+    -fx-focus-traversable: false;
+
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+
+    -fx-pref-height: 40px; /* Regola l'altezza desiderata del bottone */
+    -fx-pref-width: -1; /* Regola la larghezza desiderata del bottone */
+
+    -fx-min-width: 140px; /* Imposta la larghezza minima a use_computed_size */
+    -fx-min-height: 40px; /* Imposta l'altezza a use_computed_size */
+}
+
+.button:hover {
+    -fx-background-color: #147533; /* Cambia il colore al passaggio del mouse */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.8) , 8,0,0,2 ); /* Aumenta l'ombra al passaggio del mouse */
+    -fx-opacity: 1; /* Ripristina l'opacità al passaggio del mouse */
+}
+
+#addButton, #filterButton, #searchButton{
+    -fx-min-width: -1;
+    -fx-min-height: -1;
+    -fx-background-radius: 50%;
+    -fx-border-width: 3;
+    -fx-background-color: #e8b910;
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center; /* Posiziona l'immagine al centro */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.6) , 5,0,0,1 ); /* Aggiunge un'ombra */
+}
+
+#addButton {
+    -fx-pref-height: 60px;
+    -fx-pref-width: 60px;
+    -fx-background-image: url("../photo/add_collezione.png");
+}
+
+#searchButton{
+    -fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-background-image: url("../photo/search.png");
+}
+
+#filterButton{
+    -fx-pref-height: 40px;
+    -fx-pref-width: 40px;
+    -fx-background-image: url("../photo/filter.png");
+}
+
+#addButton:hover, #searchButton:hover, #filterButton:hover {
+    -fx-background-color: #147533; /* Cambia il colore al passaggio del mouse */
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.8) , 8,0,0,2 ); /* Aumenta l'ombra al passaggio del mouse */
+    -fx-opacity: 1; /* Ripristina l'opacità al passaggio del mouse */
+}
+
+.text-field {
+    -fx-border-color: #e8b910;
+    -fx-font-size: 16px;
+}
+
+.label{
+    -fx-font-family: 'Arial'; /* Imposta il tipo di carattere desiderato, ad esempio 'Arial' */
+    -fx-font-size: 16px;
+    -fx-text-fill: white; /* Colore del testo bianco */
+}
+
+.slider .thumb {
+    -fx-background-color: #e8b910;
+    -fx-shape: "M10 0 A10 10 0 1 0 0 10 A10 10 0 0 0 10 0 Z"; /* Forma di un cerchio */
+}
+.slider .axis {
+    -fx-tick-mark-visible: true;   /* Mostra le tacche */
+    -fx-tick-mark-fill: #e8b910;      /* Colore delle tacche */
+    -fx-tick-mark-stroke: #e8b910;    /* Colore del bordo delle tacche */
+    -fx-tick-mark-stroke-width: 2;  /* Spessore del bordo delle tacche */
+}
+/* TABLE VIEW */
+
+/* Stile generale per le colonne della tabella */
+#approveColumn .label,
+#collezioneNameColumn .label,
+#usernameColumn .label,
+#linkColumn .label,
+#genreColumn .label,
+.table-column {
+    -fx-text-fill: #333333;
+    -fx-font-size: 16px;
+    -fx-font-family: 'Arial';
+    -fx-text-alignment: CENTER;
+    -fx-alignment: CENTER;
+}
+
+/* Stile per tutti i bottoni all'interno delle celle della tabella */
+.table-cell .button {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-min-width: 85px;
+    -fx-min-height: 40px;
+    -fx-text-alignment: CENTER;
+    -fx-alignment: CENTER;
+
+}
+
+/* Stile generale per le righe della tabella */
+.table-row-cell {
+    -fx-text-fill: #000000;
+    -fx-alignment: CENTER;
+    -fx-text-alignment: CENTER;
+}
+
+/* Stile per le righe pari */
+.table-view .cell-odd {
+    -fx-background-color: #f0f0f0;
+}
+
+/* Stile per le righe dispari */
+.table-view .cell-even {
+    -fx-background-color: #ffffff;
+}
+
+/* CHECK BOX */
+
+.check-box {
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+}
+
+
+/* CONTEXT MENU */
+
+.context-menu {
+    -fx-background-color: #333333; /* Colore di sfondo */
+    -fx-border-color: #e8b910; /* Colore del bordo */
+    -fx-border-width: 2; /* Spessore del bordo */
+}
+
+.context-menu .menu-item {
+    -fx-text-fill: white; /* Colore del testo bianco */
+    -fx-font-size: 16px; /* Dimensione del carattere */
+    -fx-padding: 8 12; /* Spaziatura interna */
+    -fx-cursor: hand; /* Cambia il cursore al passaggio del mouse */
+}
+
+.context-menu .menu-item:hover {
+    -fx-background-color: rgba(29, 185, 84, 0.61); /* Cambia il colore al passaggio del mouse */
+}
+
+.context-menu .separator {
+    -fx-background-color: #e8b910; /* Colore del separatore */
+}
+
+.context-menu .accelerator-text {
+    -fx-text-fill: #e8b910; /* Colore del testo dell'acceleratore */
+}
+
+/* Grid pane in account */
+
+#gridAccount {
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-color: #2c2c2c; /* Colore di sfondo più scuro */
+    -fx-border-color: #e8b910; /* Colore del bordo */
+    -fx-border-width: 1.5; /* Spessore del bordo */
+    -fx-padding: 20; /* Spazio interno */
+}
+
+.large-label {
+    -fx-font-size: 18px; /* Dimensione del carattere aumentata */
+    -fx-text-fill: white; /* Colore del testo bianco */
+}
+
+#usernameText, #emailText {
+    -fx-text-fill: white; /* Colore del testo bianco */
+    -fx-font-size: 20px; /* Dimensione del carattere per le label specifiche */
+}
+
+#gridAccount .row-constraints {
+    -fx-alignment: CENTER; /* Allinea al centro all'interno delle righe */
+}
