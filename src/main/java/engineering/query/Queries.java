@@ -23,7 +23,7 @@ public class Queries {
                     "Azione = %d, Avventura = %d, Animazione = %d, Biografico = %d, Commedia = %d, Poliziesco = %d, Documentario = %d, " +
                     "Drammatico = %d, PerFamiglie = %d, Fantastico = %d, Noir = %d, GiocoAPremiTelevisivo = %d, Storico = %d, " +
                     "Horror = %d, Musica = %d, Musical = %d, Giallo = %d, Telegiornale = %d, Reality = %d, Sentimentale = %d, " +
-                    "Fantascienza = %d, Cortometraggio = %d, Sportivo = %d, TalkShow = %d, Thriller = %d, Guerra = %d, Western = %d" +
+                    "Fantascienza = %d, Cortometraggio = %d, Sportivo = %d, TalkShow = %d, Thriller = %d, Guerra = %d, Western = %d " +
                     "WHERE email = '%s'";
 
     /* ---------- QUERY COLLEZIONE ---------- */

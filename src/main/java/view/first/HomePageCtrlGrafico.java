@@ -248,7 +248,7 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
         deleteButton.getStyleClass().clear();
 
         // Imposta lo stile per il pulsante "delete"
-        deleteButton.setStyle("-fx-background-color: #e8b910; -fx-text-fill: white; -fx-pref-height: 25px; -fx-pref-width: 25px; " +
+        deleteButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-pref-height: 25px; -fx-pref-width: 25px; " +
                 "-fx-min-width: -1; -fx-min-height: -1; -fx-background-radius: 50%; -fx-border-radius: 50%;");
 
         text.getStyleClass().clear();
