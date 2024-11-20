@@ -10,7 +10,7 @@ L'app fornisce un'esperienza completa di gestione delle collezione, con funziona
    - Registrazione e accesso utente.
    - Accesso come Guest per visione limitata.
 
-2. **Gestione delle Collezione**
+2. **Gestione delle Collezione**u
    - Visualizzazione, ricerca ed esportazione di collezione esistenti.
    - Aggiunta di nuove collezione al database.
 
