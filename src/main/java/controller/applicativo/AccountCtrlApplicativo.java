@@ -37,7 +37,7 @@ public class AccountCtrlApplicativo {
         return collezionesBean;
     }
 
-    /** Utilizzata per aggiornare i generi musicali preferiti dell'utente in caso in cui prema il bottone Salva */
+    /** Utilizzata per aggiornare i generi preferiti dell'utente in caso in cui prema il bottone Salva */
     public void updateGenreUser(ClientBean clientBean){
         ClientDAO dao = DAOFactory.getDAOFactory().createClientDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
 

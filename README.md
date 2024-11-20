@@ -1,7 +1,7 @@
-# Prog_ISPW - Gestore di Collezione Musicali
+# Prog_ISPW - Gestore di Collezioni di Film e Serie TV
 
 ## Descrizione del Progetto
-Il progetto "Gestore di Collezione Musicali" è un'applicazione web che consente agli utenti di esplorare, condividere e scoprire nuove collezione musicali. L'autenticazione degli utenti offre funzionalità personalizzate, mentre la modalità Guest permette una visione limitata. L'app include una gestione completa delle collezione, filtri avanzati, moderazione amministrativa e un ruolo speciale per i supervisori.
+Il progetto "Gestore di Collezione Musicali" è un'applicazione web che consente agli utenti di esplorare, condividere e scoprire nuove collezione. L'autenticazione degli utenti offre funzionalità personalizzate, mentre la modalità Guest permette una visione limitata. L'app include una gestione completa delle collezione, filtri avanzati, moderazione amministrativa e un ruolo speciale per i supervisori.
 L'app fornisce un'esperienza completa di gestione delle collezione, con funzionalità avanzate e una struttura flessibile per la persistenza dei dati.
 
 ## Caratteristiche Principali
@@ -15,7 +15,7 @@ L'app fornisce un'esperienza completa di gestione delle collezione, con funziona
    - Aggiunta di nuove collezione al database.
 
 3. **Filtri e Consigli Personalizzati**
-   - Filtraggio per genere musicale, tonalità emotiva e nome della collezione.
+   - Filtraggio per genere e nome della collezione.
 
 4. **Gestione del Profilo Utente**
    - Modifica delle informazioni personali e preferenze utente.

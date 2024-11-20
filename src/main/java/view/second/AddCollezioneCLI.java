@@ -49,13 +49,13 @@ public class AddCollezioneCLI {
             }
         }
 
-        // Richiedi all'utente di selezionare i generi musicali
+        // Richiedi all'utente di selezionare i generi
         GenreManager genreManager = new GenreManager();
         Map<Integer, String> availableGenres = genreManager.getAvailableGenres();
         genreManager.printGenres(availableGenres);
 
         // Richiedi all'utente di selezionare i generi preferiti
-        Printer.print("Inserisci i numeri corrispondenti ai generi musicali contenuti nella Collezione (separati da virgola): ");
+        Printer.print("Inserisci i numeri corrispondenti ai generi contenuti nella Collezione (separati da virgola): ");
         String genreInput = scanner.next();
 
         List<String> preferences = genreManager.extractGenres(availableGenres, genreInput);

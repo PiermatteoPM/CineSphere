@@ -11,7 +11,7 @@ public class QueryLogin {
     private QueryLogin() {
     }
 
-    /** Carica nel database un nuovo utente e i suoi generi musicali preferiti */
+    /** Carica nel database un nuovo utente e i suoi generi preferiti */
     public static void registerUser(Statement stmt, Login user) {
 
         String name = user.getUsername();
@@ -30,7 +30,7 @@ public class QueryLogin {
             String insertUserStatement = String.format(Queries.INSERT_USER, email, name, password, bool);
             stmt.executeUpdate(insertUserStatement);
 
-            // Poi inserisci i generi musicali nella tabella 'generi_musicali'
+            // Poi inserisci i generi nella tabella
             insertGeneri(stmt, email, user.getPreferences());
         } catch (SQLException e){
             handleException(e);
@@ -38,7 +38,7 @@ public class QueryLogin {
 
     }
 
-    /** Inserisce i generi musicali preferiti dall'utente, utilizzata al momento della registrazione dell'utente */
+    /** Inserisce i generi preferiti dall'utente, utilizzata al momento della registrazione dell'utente */
     public static void insertGeneri(Statement stmt, String userEmail, List<String> generi) {
         try{
             StringBuilder query = new StringBuilder(String.format(Queries.INSERT_GENERI_USER, buildGenresQueryString(generi, userEmail)));
@@ -48,7 +48,7 @@ public class QueryLogin {
         }
     }
 
-    /** Aggiorna i generi musicali preferiti dell'utente */
+    /** Aggiorna i generi preferiti dell'utente */
     public static void uploadGeneri(Statement stmt, String userEmail, List<String> generi) {
         try {
             // Costruisci la query di aggiornamento

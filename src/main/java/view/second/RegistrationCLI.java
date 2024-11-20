@@ -74,14 +74,14 @@ public class RegistrationCLI {
         }
         regBean.setPassword(password);
 
-        // Richiedi generi musicali disponibili all'utente
-        Printer.println("Generi musicali preferiti:");
+        // Richiedi generi disponibili all'utente
+        Printer.println("Generi preferiti:");
         GenreManager genreManager = new GenreManager();
         Map<Integer, String> availableGenres = genreManager.getAvailableGenres();
         genreManager.printGenres(availableGenres);
 
         // Richiedi all'utente di selezionare i generi preferiti
-        Printer.print("Inserisci i numeri corrispondenti ai generi musicali preferiti (separati da virgola): ");
+        Printer.print("Inserisci i numeri corrispondenti ai generi preferiti (separati da virgola): ");
         String genreInput = scanner.next();
 
         List<String> preferences = genreManager.extractGenres(availableGenres, genreInput);

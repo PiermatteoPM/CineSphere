@@ -2,6 +2,6 @@ package view.second.utils;
 
 public class StringCLI {
     private StringCLI(){}
-    public static final String GENERES_FILE_PATH = "src/main/resources/musicGenres";
+    public static final String GENERES_FILE_PATH = "src/main/resources/Genres";
 
 }

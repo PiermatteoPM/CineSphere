@@ -34,7 +34,7 @@
                    <TextField fx:id="title" prefWidth="350.0" promptText="Collezione Title" />
                </HBox>
 
-               <!-- Selezione dei generi musicali - CheckBox -->
+               <!-- Selezione dei generi - CheckBox -->
                <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="15.0">
                    <VBox spacing="10.0">
                        <CheckBox fx:id="azione" text="Azione" />

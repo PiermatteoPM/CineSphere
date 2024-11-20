@@ -144,7 +144,7 @@ public class AddCollezioneCtrlGrafico<T extends ClientBean> implements Initializ
         if( linkCollezione.isEmpty() || titolo.isEmpty() ){
             showError("There are empty fields!");
         } else if(genre.isEmpty()) {
-            showError("Please enter at least one music genre!");
+            showError("Please enter at least one genre!");
         } else {
             collezioneBean = new CollezioneBean(clientBean.getEmail(), clientBean.getUsername(), titolo, linkCollezione, genre, clientBean.isSupervisor());
             collezioneBean.setId("");

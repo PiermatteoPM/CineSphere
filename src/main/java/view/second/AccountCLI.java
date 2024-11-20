@@ -38,7 +38,7 @@ public class AccountCLI {
 
             // Mostra il menu
             Printer.println("1. Carica nuova Collezione");
-            Printer.println("2. Reimposta le tue preferenze musicali");
+            Printer.println("2. Reimposta le tue preferenze");
             Printer.println("0. Esci");
 
             Printer.print("Scegli un'opzione: ");
@@ -93,7 +93,7 @@ public class AccountCLI {
         Printer.println("Generi disponibili:");
         genreManager.printGenres(availableGenres);
 
-        Printer.print("Inserisci i numeri corrispondenti ai generi musicali contenuti nella Collezione (separati da virgola): ");
+        Printer.print("Inserisci i numeri corrispondenti ai generi contenuti nella Collezione (separati da virgola): ");
         String genreInput = scanner.next();
 
         List<String> preferences = genreManager.extractGenres(availableGenres, genreInput);

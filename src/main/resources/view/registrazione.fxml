@@ -42,9 +42,9 @@
 
                 </GridPane>
 
-                <!-- Selezione dei generi musicali - CheckBox -->
+                <!-- Selezione dei generi - CheckBox -->
                 <VBox alignment="CENTER">
-                    <Label text="Your favorite musical genres" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="2.0">
+                    <Label text="Your favorite genres" AnchorPane.leftAnchor="180.0" AnchorPane.rightAnchor="180.0" AnchorPane.topAnchor="2.0">
                         <padding>
                             <Insets bottom="15.0" />
                         </padding>

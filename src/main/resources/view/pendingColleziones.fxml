@@ -20,7 +20,7 @@
                 <columns>
                     <TableColumn fx:id="collezioneNameColumn" prefWidth="150.0" text="Title" />
                     <TableColumn fx:id="linkColumn" prefWidth="150.0" text="Link" />
-                    <TableColumn fx:id="genreColumn" prefWidth="150.0" text="Musical genres" />
+                    <TableColumn fx:id="genreColumn" prefWidth="150.0" text="Genres" />
                     <TableColumn fx:id="usernameColumn" prefWidth="150.0" text="Author" />
                     <TableColumn fx:id="approveColumn" prefWidth="150.0" text="Approve or Reject" />
 

@@ -129,7 +129,7 @@ public class CollezioneDAOMySQL implements CollezioneDAO {
 
             colleziones = new ArrayList<>(); // Una lista di collezione
 
-            List<String> genres; // Una lista per i generi musicali
+            List<String> genres; // Una lista per i generi
 
             while (rs.next()) {
                 Collezione collezione = new Collezione();
@@ -237,7 +237,7 @@ public class CollezioneDAOMySQL implements CollezioneDAO {
 
     }
 
-    /** Imposta i campi username, email, link, nome Collezione, approved, Generi musicali */
+    /** Imposta i campi username, email, link, nome Collezione, approved, Generi */
     private void fillModelFromResultSet(Collezione collezione, ResultSet rs) throws SQLException {
 
         collezione.setUsername(rs.getString(USERNAME));

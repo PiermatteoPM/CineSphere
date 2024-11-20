@@ -55,7 +55,7 @@ public class QueryCollezione {
         return stmt.executeQuery(sql);
     }
 
-    /** Ritorna una lista di collezione che combaciano con i generi musicali selezionati */
+    /** Ritorna una lista di collezione che combaciano con i generi selezionati */
     public static ResultSet searchCollezionesByFilter(Statement stmt, Collezione collezione) throws SQLException {
 
         String genre = buildGenresQueryString(collezione.getCollezioneGenre());
@@ -96,20 +96,20 @@ public class QueryCollezione {
     }
 
     /** Recupera tutta la collezione_utente, va usata con retriveGenreCollezione per ottenere
-     * i generi musicali delle collezione caricate */
+     * i generi delle collezione caricate */
     public static ResultSet retriveCollezioneClientByUsername(Statement stmt, String username) throws SQLException {
         String sql = String.format(Queries.SELECT_COLLEZIONE_BY_USER,username);
         return stmt.executeQuery(sql);
     }
 
     /** Recupera tutta la collezione_utente, va usata con retriveGenreCollezione per ottenere
-     * i generi musicali delle collezione caricate */
+     * i generi delle collezione caricate */
     public static ResultSet retrieveCollezioneClientByEmail(Statement stmt, String email) throws SQLException {
         String sql = String.format(Queries.SELECT_COLLEZIONE_BY_EMAIL,email);
         return stmt.executeQuery(sql);
     }
 
-    /** Recupera da GENERI, i generi musicali della collezione passata come id */
+    /** Recupera da GENERI, i generi della collezione passata come id */
     public static ResultSet retrieveGenreCollezioneById(Statement stmt, int id) throws SQLException {
         String sql = String.format(Queries.SELECT_GENRE_USER_QUERY,id);
         return stmt.executeQuery(sql);
