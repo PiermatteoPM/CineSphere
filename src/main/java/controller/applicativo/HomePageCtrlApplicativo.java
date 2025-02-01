@@ -1,82 +1,82 @@
 package controller.applicativo;
 
 import engineering.bean.NoticeBean;
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import engineering.dao.*;
 import engineering.exceptions.LinkIsNotValidException;
 import engineering.others.Printer;
 import engineering.pattern.abstract_factory.DAOFactory;
 import engineering.pattern.observer.Observer;
-import engineering.pattern.observer.CollezioneCollection;
+import engineering.pattern.observer.CollectionCollectionss;
 import engineering.pattern.observer.Subject;
 import model.Notice;
-import model.Collezione;
+import model.Collection;
 
 import java.util.*;
 
 public class HomePageCtrlApplicativo {
 
-    public List<CollezioneBean> retriveCollezionesApproved() {
+    public List<CollectionBean> retriveCollectionssApproved() {
 
-        CollezioneDAO dao = DAOFactory.getDAOFactory().createCollezioneDAO();        // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
-        List<Collezione> colleziones = dao.retrieveApprovedColleziones();              // Recupero lista Collezione approvate
+        CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();        // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
+        List<Collection> collectionss = dao.retrieveApprovedCollectionss();              // Recupero lista Collection approvate
 
-        return getCollezionesBean(colleziones);
+        return getCollectionssBean(collectionss);
     }
 
-    public List<CollezioneBean> searchCollezioneByFilters(CollezioneBean collezioneBean) {
+    public List<CollectionBean> searchCollectionByFilters(CollectionBean collectionBean) {
 
-        CollezioneDAO dao = DAOFactory.getDAOFactory().createCollezioneDAO();  // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
+        CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();  // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
 
-        Collezione collezione = new Collezione();                             // Creo la entity da passare al DAO
+        Collection collection = new Collection();                             // Creo la entity da passare al DAO
 
-        /* Popolo la collezione da cercare con solo le informazioni di cui l'utente è interessato */
-        collezione.setCollezioneName(collezioneBean.getCollezioneName());
-        collezione.setCollezioneGenre(collezioneBean.getCollezioneGenre());
+        /* Popolo la collection da cercare con solo le informazioni di cui l'utente è interessato */
+        collection.setCollectionName(collectionBean.getCollectionName());
+        collection.setCollectionGenre(collectionBean.getCollectionGenre());
 
-        List<Collezione> colleziones;
+        List<Collection> collectionss;
 
-        if (genreEmpty(collezione.getCollezioneGenre())) {
-            colleziones = dao.searchCollezioneByTitle(collezione);  // Filtra solo per titolo
+        if (genreEmpty(collection.getCollectionGenre())) {
+            collectionss = dao.searchCollectionByTitle(collection);  // Filtra solo per titolo
         } else {
-            colleziones = dao.searchCollezioneByGenre(collezione);  // Filtra per titolo e generi
+            collectionss = dao.searchCollectionByGenre(collection);  // Filtra per titolo e generi
         }
 
 
-        return getCollezionesBean(colleziones);
+        return getCollectionssBean(collectionss);
     }
 
     /** Nel caso in cui non volessimo che la view contattasse il model per fare attach */
-    public void observeCollezioneTable(Observer observer){
-        Subject collezioneCollection = CollezioneCollection.getInstance();
-        collezioneCollection.attach(observer);
+    public void observeCollectionTable(Observer observer){
+        Subject collectionCollection = CollectionCollectionss.getInstance();
+        collectionCollection.attach(observer);
     }
 
-    public List<CollezioneBean> getCollezionesBean(List<Collezione> colleziones){
-        List<CollezioneBean> collezionesBean = new ArrayList<>();           // Creo una lista di collezioneBean da restituire al Grafico
+    public List<CollectionBean> getCollectionssBean(List<Collection> collectionss){
+        List<CollectionBean> collectionssBean = new ArrayList<>();           // Creo una lista di collectionBean da restituire al Grafico
 
         try {
-            for (Collezione p : colleziones){
-                CollezioneBean pB = new CollezioneBean(p.getEmail(),p.getUsername(),p.getCollezioneName(),p.getLink(),p.getCollezioneGenre(),p.getApproved());
-                pB.setId(p.getId());
-                collezionesBean.add(pB);
+            for (Collection p : collectionss){
+                CollectionBean cb = new CollectionBean(p.getEmail(),p.getUsername(),p.getCollectionName(),p.getLink(),p.getCollectionGenre(),p.getApproved());
+                cb.setId(p.getId());
+                collectionssBean.add(cb);
             }
         } catch (LinkIsNotValidException e){
             // Non la valuto perché è un retrieve da persistenza, dove è stata caricata correttamente
             Printer.logPrint(String.format("HomePage APP: LinkIsNotValid %s", e.getMessage()));
         }
-        return collezionesBean;
+        return collectionssBean;
     }
 
-    public void deleteSelectedCollezione(CollezioneBean collezioneBean) {
-        Collezione collezione = new Collezione(collezioneBean.getEmail(), collezioneBean.getUsername(), collezioneBean.getCollezioneName(), collezioneBean.getLink(), collezioneBean.getCollezioneGenre(), collezioneBean.getApproved());
+    public void deleteSelectedCollection(CollectionBean collectionBean) {
+        Collection collection = new Collection(collectionBean.getEmail(), collectionBean.getUsername(), collectionBean.getCollectionName(), collectionBean.getLink(), collectionBean.getCollectionGenre(), collectionBean.getApproved());
 
-        if (collezione.getApproved()){
-            CollezioneDAO dao = DAOFactory.getDAOFactory().createCollezioneDAO();
-            dao.deleteCollezione(collezione);
+        if (collection.getApproved()){
+            CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();
+            dao.deleteCollection(collection);
 
             /* OBSERVER -> REMOVE PER FAR AGGIORNARE LA HOME PAGE */
-            CollezioneCollection.getInstance().removeCollezione(collezione);
+            CollectionCollectionss.getInstance().removeCollection(collection);
         }
     }
 

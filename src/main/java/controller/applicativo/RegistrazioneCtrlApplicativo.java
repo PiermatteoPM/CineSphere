@@ -42,3 +42,5 @@ public class RegistrazioneCtrlApplicativo {
         dao.tryCredentialExisting(login);
     }
 }
+
+

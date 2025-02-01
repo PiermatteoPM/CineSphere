@@ -19,22 +19,25 @@ public class MainApplication extends Application {
     public void start(Stage stage) throws IOException {
         // Carica le proprietà dal file di configurazione
         Properties properties = loadConfigurationProperties();
-
         // Ottieni il tipo di interfaccia dalle proprietà
-        int interfaceType = Integer.parseInt(properties.getProperty("interface.type","1"));
+        int interfaceType = Integer.parseInt(properties.getProperty("interface.type", "1"));
 
-        if (interfaceType == 1) {
-            // Interfaccia grafica
-            loadGraphicalInterface(stage);
-        } else if (interfaceType == 2) {
-            // Interfaccia a riga di comando
-            startCommandLineInterface();
-        } else {
-            Printer.errorPrint("Tipo di interfaccia specificata nel file di configurazione non valida: Default interfaccia grafica");
-            // Interfaccia grafica
-            loadGraphicalInterface(stage);
+        // Utilizza un'espressione switch per selezionare il tipo di interfaccia
+        switch (interfaceType) {
+            case 1 ->
+                // Interfaccia grafica
+                    loadGraphicalInterface(stage);
+            case 2 ->
+                // Interfaccia a riga di comando
+                    startCommandLineInterface();
+            default -> {
+                Printer.errorPrint("Tipo di interfaccia specificata nel file di configurazione non valida: Default interfaccia grafica");
+                // Interfaccia grafica di default
+                loadGraphicalInterface(stage);
+            }
         }
     }
+
 
     private void loadGraphicalInterface(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource(FxmlFileName.LOGIN_FXML));

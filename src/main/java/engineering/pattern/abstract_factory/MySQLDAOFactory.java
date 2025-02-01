@@ -10,8 +10,8 @@ public class MySQLDAOFactory extends DAOFactory {
     }
 
     @Override
-    public CollezioneDAO createCollezioneDAO() {
-        return new CollezioneDAOMySQL();
+    public CollectionDAO createCollectionDAO() {
+        return new CollectionDAOMySQL();
     }
 
     @Override

@@ -35,7 +35,7 @@ public class TextPopUp {
         stage.close();
         // Devo fare goBack ma l'evento è avvenuto su uno stage diverso di quello del pop-up
         // Devo recuperare lo stage di partenza
-        if(previousEvent != null){ // In AddCollezione
+        if(previousEvent != null){ // In AddCollection
             sceneController.goBack(previousEvent);
         }
     }

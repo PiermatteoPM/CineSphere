@@ -1,12 +1,19 @@
 package engineering.others;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class Printer {
 
-    private Printer(){}
+    // Crea un'istanza di Logger tramite Log4j 2
+    private static final Logger logger = LogManager.getLogger(Printer.class);
+
+    private Printer() {}
 
     /** Stampa in bianco e non va a capo */
-    public static void print(String message){
-        System.out.print(message);
+    public static void print(String message) {
+        // Usa Log4j 2 per stampare il messaggio
+        logger.info(message);
     }
 
     /** Stampa in bianco e va a capo */

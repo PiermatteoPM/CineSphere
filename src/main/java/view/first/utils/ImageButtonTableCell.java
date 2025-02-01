@@ -1,6 +1,6 @@
 package view.first.utils;
 
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableCell;
 import javafx.scene.image.Image;
@@ -8,7 +8,7 @@ import javafx.scene.image.ImageView;
 
 import java.util.Objects;
 
-public class ImageButtonTableCell extends TableCell<CollezioneBean, Boolean> {
+public class ImageButtonTableCell extends TableCell<CollectionBean, Boolean> {
         private final ImageView imageView = new ImageView();
 
         public ImageButtonTableCell(){

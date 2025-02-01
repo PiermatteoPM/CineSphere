@@ -68,7 +68,7 @@ public class FilterCtrlGrafico implements Initializable {
     private CheckBox western;
     boolean applyFilter = false;
 
-    private CollezioneBean collezioneBean;
+    private CollectionBean collectionBean;
     private List<CheckBox> checkBoxList;
     private HomePageCtrlGrafico<?> homeController;
 
@@ -85,23 +85,23 @@ public class FilterCtrlGrafico implements Initializable {
     }
 
     /** Viene utilizzata da sceneController per impostare lo userBean e l'istanza di Scene controller da utilizzare */
-    public void setAttributes(CollezioneBean collezioneBean) {
+    public void setAttributes(CollectionBean collectionBean) {
         // Deve avere un userBean per compilare tutte le informazioni
-        this.collezioneBean = collezioneBean;
+        this.collectionBean = collectionBean;
         setData();
     }
 
     @FXML
     private void onApplyClick(ActionEvent event) {
-        // Devo modificare i campi del CollezioneBean
+        // Devo modificare i campi del CollectionBean
         List<String> genre = GenreManager.retrieveCheckList(checkBoxList);
 
 
-        collezioneBean.setCollezioneGenre(genre);
+        collectionBean.setCollectionGenre(genre);
 
         applyFilter = !checkEmptyFields();
         homeController.setFilterApplied(applyFilter);
-        homeController.onSearchCollezioneClick();
+        homeController.onSearchCollectionClick();
 
         // Chiudi il popup
         Stage stage = (Stage) ((Button) event.getSource()).getScene().getWindow();
@@ -109,7 +109,7 @@ public class FilterCtrlGrafico implements Initializable {
     }
 
     private void setData(){
-        List<String> preferences = collezioneBean.getCollezioneGenre();
+        List<String> preferences = collectionBean.getCollectionGenre();
 
         if(preferences != null){
             GenreManager.setCheckList(preferences,checkBoxList);
@@ -126,7 +126,7 @@ public class FilterCtrlGrafico implements Initializable {
         List<String> genre = new ArrayList<>();
 
 
-        collezioneBean.setCollezioneGenre(genre);
+        collectionBean.setCollectionGenre(genre);
 
         setData();
         applyFilter = false;

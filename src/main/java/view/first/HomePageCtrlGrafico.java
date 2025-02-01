@@ -15,7 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.*;
 import javafx.scene.layout.*;
 import javafx.scene.text.Text;
-import model.Collezione;
+import model.Collection;
 import view.first.utils.*;
 
 import java.net.URL;
@@ -24,7 +24,7 @@ import java.util.*;
 /**
  * Questa classe rappresenta il controller grafico della home page dell'applicazione,
  * fungendo da Concrete Observer nel contesto del pattern Observer. Si occupa di gestire
- * la visualizzazione delle collezione, la gestione delle notifiche e l'interazione
+ * la visualizzazione delle collection, la gestione delle notifiche e l'interazione
  * con l'utente tramite una GUI JavaFX.
  *
  * @param <T> Tipo generico che estende {@link ClientBean}, rappresenta il tipo di bean utente
@@ -37,16 +37,16 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
     @FXML
     private TextField searchText;
     @FXML
-    private TableView<CollezioneBean> collezioneTable;
+    private TableView<CollectionBean> collectionTable;
 
     @FXML
-    private TableColumn<CollezioneBean, String> collezioneNameColumn;
+    private TableColumn<CollectionBean, String> collectionNameColumn;
     @FXML
-    private TableColumn<CollezioneBean, List<String>> genreColumn;
+    private TableColumn<CollectionBean, List<String>> genreColumn;
     @FXML
-    private TableColumn<CollezioneBean, String> usernameColumn;
+    private TableColumn<CollectionBean, String> usernameColumn;
     @FXML
-    private TableColumn<CollezioneBean, String> linkColumn;
+    private TableColumn<CollectionBean, String> linkColumn;
 
     @FXML
     private Button manager;
@@ -61,12 +61,12 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
 
     private T clientBean;
     private SceneController sceneController;
-    private final CollezioneBean filterCollezione = new CollezioneBean(); // Contiene gli attributi secondo i quali filtrare le colleziones
+    private final CollectionBean filterCollection = new CollectionBean(); // Contiene gli attributi secondo i quali filtrare le collectionss
 
     /** OBSERVER */
-    private CollezioneCollection collezioneCollection; /** ISTANZA DEL MODEL (CONCRETE SUBJECT) */
-    private List<Collezione> colleziones = new ArrayList<>(); /** Observer state -> Model ma serve cosi per il pattern */
-    private List<CollezioneBean> collezionesBean = new ArrayList<>();
+    private CollectionCollectionss collectionCollection; /** ISTANZA DEL MODEL (CONCRETE SUBJECT) */
+    private List<Collection> collectionss = new ArrayList<>(); /** Observer state -> Model ma serve cosi per il pattern */
+    private List<CollectionBean> collectionssBean = new ArrayList<>();
 
     /**
      * Inizializza il controller grafico della home page.
@@ -77,23 +77,23 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Recupera tutte le collezione
+        // Recupera tutte le collection
         Printer.logPrint("GUI Home Page");
 
-        List<TableColumn<CollezioneBean, ?>> columns = Arrays.asList(collezioneNameColumn, linkColumn, usernameColumn, genreColumn);
-        List<String> nameColumns = Arrays.asList("collezioneName", "link", "username", "collezioneGenre");
+        List<TableColumn<CollectionBean, ?>> columns = Arrays.asList(collectionNameColumn, linkColumn, usernameColumn, genreColumn);
+        List<String> nameColumns = Arrays.asList("collectionName", "link", "username", "collectionGenre");
         linkColumn.setCellFactory(button -> new SingleButtonTableCell());
 
         /* BYPASSIAMO MVC PER PATTERN OBSERVER */
-        collezioneCollection = CollezioneCollection.getInstance();
-        collezioneCollection.attach(this);
+        collectionCollection = CollectionCollectionss.getInstance();
+        collectionCollection.attach(this);
 
         /* Metodo pull per ricevere i dati dal dao */
         HomePageCtrlApplicativo homePageController = new HomePageCtrlApplicativo();
-        collezionesBean = homePageController.retriveCollezionesApproved(); // Recupera le collezione approvate
+        collectionssBean = homePageController.retriveCollectionssApproved(); // Recupera le collection approvate
 
         TableManager.setColumnsTableView(columns, nameColumns);   // Aggiorna i parametri della tabella
-        TableManager.updateTable(collezioneTable, collezionesBean);
+        TableManager.updateTable(collectionTable, collectionssBean);
     }
 
     /** Viene utilizzata da sceneController per impostare lo userBean e l'istanza di Scene controller da utilizzare */
@@ -112,15 +112,15 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
     /** UTILIZZATA PER IL PATTERN OBSERVER */
     @Override
     public void update() {
-        /* Ricevo una lista di Collezione (model) la invio all'applicativo per una traduzione da model a bean
+        /* Ricevo una lista di Collection (model) la invio all'applicativo per una traduzione da model a bean
         * Potevo anche far fare il getState() all'applicativo in una funzione apposita */
-        colleziones = collezioneCollection.getState();
+        collectionss = collectionCollection.getState();
 
         HomePageCtrlApplicativo homePageCtrlApplicativo = new HomePageCtrlApplicativo();
-        collezionesBean = homePageCtrlApplicativo.getCollezionesBean(colleziones);
+        collectionssBean = homePageCtrlApplicativo.getCollectionssBean(collectionss);
 
         if(!filterApplied){ // Se i filtri non sono applicati allora aggiorna la tabella altrimenti no
-            TableManager.addInTable(collezioneTable, collezionesBean);
+            TableManager.addInTable(collectionTable, collectionssBean);
         }
     }
 
@@ -156,33 +156,33 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
     }
 
     @FXML
-    protected void onAddCollezioneClick(ActionEvent event) {
-        sceneController.goToScene(event, FxmlFileName.UPLOAD_COLLEZIONE_FXML, clientBean);
+    protected void onAddCollectionClick(ActionEvent event) {
+        sceneController.goToScene(event, FxmlFileName.UPLOAD_COLLECTION_FXML, clientBean);
     }
 
     @FXML
     protected void onManagerClick(ActionEvent event) {
-        sceneController.goToScene(event, FxmlFileName.MANAGER_COLLEZIONE_FXML);
+        sceneController.goToScene(event, FxmlFileName.MANAGER_COLLECTION_FXML);
     }
 
     @FXML
-    public void onSearchCollezioneClick() {
+    public void onSearchCollectionClick() {
         if(!Objects.equals(searchText.getText(), "")){
             this.filterApplied = true;
         }
 
-        filterCollezione.setCollezioneName(searchText.getText());
+        filterCollection.setCollectionName(searchText.getText());
 
         HomePageCtrlApplicativo homePageController = new HomePageCtrlApplicativo();
-        collezionesBean = homePageController.searchCollezioneByFilters(filterCollezione);        // Recupera le collezione approvate
+        collectionssBean = homePageController.searchCollectionByFilters(filterCollection);        // Recupera le collection approvate
 
-        TableManager.updateTable(collezioneTable, collezionesBean);
-        Printer.logPrint(String.format("GUI HomePage: search clicked: %s, nome: %s, genre: %s", filterCollezione, filterCollezione.getCollezioneName(), filterCollezione.getCollezioneGenre()));
+        TableManager.updateTable(collectionTable, collectionssBean);
+        Printer.logPrint(String.format("GUI HomePage: search clicked: %s, nome: %s, genre: %s", filterCollection, filterCollection.getCollectionName(), filterCollection.getCollectionGenre()));
     }
 
     @FXML
     protected void onFilterClick(ActionEvent event) {
-        sceneController.goToFilterPopUp(event, clientBean, filterCollezione,this);
+        sceneController.goToFilterPopUp(event, clientBean, filterCollection,this);
     }
 
     @FXML
@@ -248,7 +248,7 @@ public class HomePageCtrlGrafico<T extends ClientBean> implements Initializable,
         deleteButton.getStyleClass().clear();
 
         // Imposta lo stile per il pulsante "delete"
-        deleteButton.setStyle("-fx-background-color: #e8b910; -fx-text-fill: white; -fx-pref-height: 25px; -fx-pref-width: 25px; " +
+        deleteButton.setStyle("-fx-background-color: transparent; -fx-text-fill: white; -fx-pref-height: 25px; -fx-pref-width: 25px; " +
                 "-fx-min-width: -1; -fx-min-height: -1; -fx-background-radius: 50%; -fx-border-radius: 50%;");
 
         text.getStyleClass().clear();

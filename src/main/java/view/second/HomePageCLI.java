@@ -15,7 +15,7 @@ import java.util.Scanner;
 public class HomePageCLI<T extends ClientBean> {
 
     private Scanner scanner = new Scanner(System.in);
-    private CollezioneBean collezioneBean = new CollezioneBean();
+    private CollectionBean collectionBean = new CollectionBean();
     private T clientBean;
 
     /**
@@ -28,12 +28,12 @@ public class HomePageCLI<T extends ClientBean> {
     }
 
     /**
-     * Imposta il bean della collezione per l'interfaccia utente.
+     * Imposta il bean della collection per l'interfaccia utente.
      *
-     * @param collezioneBean Il bean della collezione da impostare.
+     * @param collectionBean Il bean della collection da impostare.
      */
-    public void setCollezioneBean(CollezioneBean collezioneBean) {
-        this.collezioneBean = collezioneBean;
+    public void setCollectionBean(CollectionBean collectionBean) {
+        this.collectionBean = collectionBean;
     }
 
     /**
@@ -50,11 +50,11 @@ public class HomePageCLI<T extends ClientBean> {
 
             switch (choice) {
                 case 1:
-                    showAllColleziones();
+                    showAllCollectionss();
                     break;
                 case 2:
                     // Devo differenziare user e supervisor da guest
-                    addCollezione();
+                    addCollection();
                     break;
                 case 3:
                     addFilter();
@@ -63,7 +63,7 @@ public class HomePageCLI<T extends ClientBean> {
                     deleteFilter();
                     break;
                 case 5:
-                    searchCollezione();
+                    searchCollection();
                     break;
                 case 6:
                     // Passa al menu del profilo utente
@@ -76,10 +76,10 @@ public class HomePageCLI<T extends ClientBean> {
                     }
                     break;
                 case 7:
-                    // Passa al menu approvazione collezione
+                    // Passa al menu approvazione collection
                     // Verifica per maggiore sicurezza
                     if (clientBean.isSupervisor()) {
-                        goToApproveCollezione();
+                        goToApproveCollection();
                     }
                     break;
                 case 0:
@@ -92,10 +92,10 @@ public class HomePageCLI<T extends ClientBean> {
     }
 
     /**
-     * Passa al menu di gestione delle collezione in attesa di approvazione.
+     * Passa al menu di gestione delle collection in attesa di approvazione.
      */
-    private void goToApproveCollezione() {
-        ManageCollezionesCLI manager = new ManageCollezionesCLI();
+    private void goToApproveCollection() {
+        ManageCollectionssCLI manager = new ManageCollectionssCLI();
         manager.start();
     }
 
@@ -121,15 +121,15 @@ public class HomePageCLI<T extends ClientBean> {
      */
     private void printMenu() {
         Printer.println("\n ----- Home Page ----- ");
-        Printer.println("1. Visualizza tutte le collezione");
+        Printer.println("1. Visualizza tutte le collection");
         if (clientBean != null) {
-            Printer.println("2. Aggiungi una collezione");
+            Printer.println("2. Aggiungi una collection");
         } else {
-            Printer.println("2. !!! Non puoi aggiungere collezione -> Registrati!!!");
+            Printer.println("2. !!! Non puoi aggiungere collection -> Registrati!!!");
         }
         Printer.println("3. Applica un filtro di ricerca");
         Printer.println("4. Elimina il filtro di ricerca");
-        Printer.println("5. Cerca una collezione per nome");
+        Printer.println("5. Cerca una collection per nome");
         if (clientBean != null) {
             Printer.println("6. Visualizza il tuo profilo");
         } else {
@@ -137,37 +137,37 @@ public class HomePageCLI<T extends ClientBean> {
         }
 
         if (clientBean != null && clientBean.isSupervisor()) {
-            Printer.println("7. Gestisci colleziones in attesa di approvazione");
+            Printer.println("7. Gestisci collection in attesa di approvazione");
         }
         Printer.println("0. Esci");
         Printer.println("Scegli un'opzione: ");
     }
 
     /**
-     * Visualizza tutte le collezione approvate.
+     * Visualizza tutte le collection approvate.
      */
-    private void showAllColleziones() {
-        // Utilizza i metodi del controller applicativo per recuperare e stampare le collezione approvate
+    private void showAllCollectionss() {
+        // Utilizza i metodi del controller applicativo per recuperare e stampare le collection approvate
         HomePageCtrlApplicativo homePageController = new HomePageCtrlApplicativo();
-        List<CollezioneBean> collezioneBeans = homePageController.retriveCollezionesApproved();
+        List<CollectionBean> collectionBeans = homePageController.retriveCollectionssApproved();
 
-        int collezioneNumber = 1;
-        for (CollezioneBean collezione : collezioneBeans) {
-            Printer.println(String.format("%d. Titolo: %s Creatore: %s Generi della Collezione: %s",
-                    collezioneNumber, collezione.getCollezioneName(), collezione.getUsername(), collezione.getCollezioneGenre()));
-            collezioneNumber++;
+        int collectionNumber = 1;
+        for (CollectionBean collection : collectionBeans) {
+            Printer.println(String.format("%d. Titolo: %s Creatore: %s Generi della Collection: %s",
+                    collectionNumber, collection.getCollectionName(), collection.getUsername(), collection.getCollectionGenre()));
+            collectionNumber++;
         }
 
         while (true) {
-            // Per copiare il link della collezione, l'utente deve inserire il numero corrispondente
-            Printer.print("Inserisci il numero della collezione per ricevere il link (0 per tornare al menu): ");
+            // Per copiare il link della collection, l'utente deve inserire il numero corrispondente
+            Printer.print("Inserisci il numero della collection per ricevere il link (0 per tornare al menu): ");
 
-            int collezioneChoice = scanner.nextInt();
+            int collectionChoice = scanner.nextInt();
 
-            if (collezioneChoice > 0 && collezioneChoice <= collezioneBeans.size()) {
-                CollezioneBean selectedCollezione = collezioneBeans.get(collezioneChoice - 1);
-                Printer.println(String.format("Link: %s", selectedCollezione.getLink()));
-            } else if (collezioneChoice == 0) {
+            if (collectionChoice > 0 && collectionChoice <= collectionBeans.size()) {
+                CollectionBean selectedCollection = collectionBeans.get(collectionChoice - 1);
+                Printer.println(String.format("Link: %s", selectedCollection.getLink()));
+            } else if (collectionChoice == 0) {
                 // Torna al menu principale
                 break;
             } else {
@@ -177,63 +177,63 @@ public class HomePageCLI<T extends ClientBean> {
     }
 
     /**
-     * Aggiunge una nuova collezione.
+     * Aggiunge una nuova collection.
      */
-    private void addCollezione() {
-        AddCollezioneCLI addCollezioneCLI = new AddCollezioneCLI();
-        addCollezioneCLI.setClientBean(clientBean);
-        addCollezioneCLI.start();
+    private void addCollection() {
+        AddCollectionCLI addCollectionCLI = new AddCollectionCLI();
+        addCollectionCLI.setClientBean(clientBean);
+        addCollectionCLI.start();
     }
 
     /**
-     * Applica un filtro di ricerca alle collezione.
+     * Applica un filtro di ricerca alle collection.
      */
     private void addFilter() {
         Printer.errorPrint("Non è ancora stato implementato.");
     }
 
     /**
-     * Elimina i filtri di ricerca applicati alle collezione.
+     * Elimina i filtri di ricerca applicati alle collection.
      */
     private void deleteFilter() {
         Printer.errorPrint("Non è ancora stato implementato.");
     }
 
     /**
-     * Cerca una collezione per nome.
+     * Cerca una collection per nome.
      */
-    private void searchCollezione() {
-        Printer.print("Inserisci il nome della collezione da cercare: ");
-        String collezioneName = scanner.nextLine();
+    private void searchCollection() {
+        Printer.print("Inserisci il nome della collection da cercare: ");
+        String collectionName = scanner.nextLine();
 
         HomePageCtrlApplicativo homePageController = new HomePageCtrlApplicativo();
-        collezioneBean.setCollezioneName(collezioneName);
-        List<CollezioneBean> collezionesList = homePageController.searchCollezioneByFilters(collezioneBean);
+        collectionBean.setCollectionName(collectionName);
+        List<CollectionBean> collectionssList = homePageController.searchCollectionByFilters(collectionBean);
 
-        Printer.println(String.format("Collezione che contengono: \"%s\" nel titolo: ", collezioneName));
+        Printer.println(String.format("Collection che contengono: \"%s\" nel titolo: ", collectionName));
 
-        if (collezionesList.isEmpty()) {
-            Printer.println("Nessuna collezione trovata con il nome specificato.");
+        if (collectionssList.isEmpty()) {
+            Printer.println("Nessuna collection trovata con il nome specificato.");
         } else {
             int index = 1;
-            for (CollezioneBean collezione : collezionesList) {
+            for (CollectionBean collection : collectionssList) {
                 Printer.println(String.format("%d. Nome: %s, Username: %s, Generi: %s",
-                        index, collezione.getCollezioneName(), collezione.getUsername(), collezione.getCollezioneGenre()));
+                        index, collection.getCollectionName(), collection.getUsername(), collection.getCollectionGenre()));
                 index++;
             }
 
-            int selectedCollezioneIndex;
+            int selectedCollectionIndex;
             while (true) {
-                Printer.print("Inserisci il numero corrispondente alla collezione desiderata (inserisci 0 per uscire): ");
-                selectedCollezioneIndex = scanner.nextInt();
+                Printer.print("Inserisci il numero corrispondente alla collection desiderata (inserisci 0 per uscire): ");
+                selectedCollectionIndex = scanner.nextInt();
 
-                if (selectedCollezioneIndex == 0) {
+                if (selectedCollectionIndex == 0) {
                     break; // Esce dal ciclo interno se l'utente inserisce 0
                 }
 
-                if (selectedCollezioneIndex >= 1 && selectedCollezioneIndex <= collezionesList.size()) {
-                    CollezioneBean selectedCollezione = collezionesList.get(selectedCollezioneIndex - 1);
-                    Printer.println(String.format("Link della collezione selezionata: %s", selectedCollezione.getLink()));
+                if (selectedCollectionIndex >= 1 && selectedCollectionIndex <= collectionssList.size()) {
+                    CollectionBean selectedCollection = collectionssList.get(selectedCollectionIndex - 1);
+                    Printer.println(String.format("Link della collection selezionata: %s", selectedCollection.getLink()));
                 } else {
                     Printer.errorPrint("! Selezione non valida-> Riprova !");
                 }

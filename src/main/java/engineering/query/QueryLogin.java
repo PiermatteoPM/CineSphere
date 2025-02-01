@@ -11,7 +11,7 @@ public class QueryLogin {
     private QueryLogin() {
     }
 
-    /** Carica nel database un nuovo utente e i suoi generi musicali preferiti */
+    /** Carica nel database un nuovo utente e i suoi generi preferiti */
     public static void registerUser(Statement stmt, Login user) {
 
         String name = user.getUsername();
@@ -30,7 +30,7 @@ public class QueryLogin {
             String insertUserStatement = String.format(Queries.INSERT_USER, email, name, password, bool);
             stmt.executeUpdate(insertUserStatement);
 
-            // Poi inserisci i generi musicali nella tabella 'generi_musicali'
+            // Poi inserisci i generi nella tabella
             insertGeneri(stmt, email, user.getPreferences());
         } catch (SQLException e){
             handleException(e);
@@ -38,7 +38,7 @@ public class QueryLogin {
 
     }
 
-    /** Inserisce i generi musicali preferiti dall'utente, utilizzata al momento della registrazione dell'utente */
+    /** Inserisce i generi preferiti dall'utente, utilizzata al momento della registrazione dell'utente */
     public static void insertGeneri(Statement stmt, String userEmail, List<String> generi) {
         try{
             StringBuilder query = new StringBuilder(String.format(Queries.INSERT_GENERI_USER, buildGenresQueryString(generi, userEmail)));
@@ -48,45 +48,32 @@ public class QueryLogin {
         }
     }
 
-    /** Aggiorna i generi musicali preferiti dell'utente */
+    /** Aggiorna i generi preferiti dell'utente */
     public static void uploadGeneri(Statement stmt, String userEmail, List<String> generi) {
         try {
-            // Costruisci la query di aggiornamento
-            String query = String.format(Queries.UPDATE_GENERI_USER,
-                    generi.contains("Azione") ? 1 : 0,
-                    generi.contains("Avventura") ? 1 : 0,
-                    generi.contains("Animazione") ? 1 : 0,
-                    generi.contains("Biografico") ? 1 : 0,
-                    generi.contains("Commedia") ? 1 : 0,
-                    generi.contains("Poliziesco") ? 1 : 0,
-                    generi.contains("Documentario") ? 1 : 0,
-                    generi.contains("Drammatico") ? 1 : 0,
-                    generi.contains("PerFamiglie") ? 1 : 0,
-                    generi.contains("Fantastico") ? 1 : 0,
-                    generi.contains("Noir") ? 1 : 0,
-                    generi.contains("GiocoAPremiTelevisivo") ? 1 : 0,
-                    generi.contains("Storico") ? 1 : 0,
-                    generi.contains("Horror") ? 1 : 0,
-                    generi.contains("Musica") ? 1 : 0,
-                    generi.contains("Musical") ? 1 : 0,
-                    generi.contains("Giallo") ? 1 : 0,
-                    generi.contains("Telegiornale") ? 1 : 0,
-                    generi.contains("Reality") ? 1 : 0,
-                    generi.contains("Sentimentale") ? 1 : 0,
-                    generi.contains("Fantascienza") ? 1 : 0,
-                    generi.contains("Cortometraggio") ? 1 : 0,
-                    generi.contains("Sportivo") ? 1 : 0,
-                    generi.contains("TalkShow") ? 1 : 0,
-                    generi.contains("Thriller") ? 1 : 0,
-                    generi.contains("Guerra") ? 1 : 0,
-                    generi.contains("Western") ? 1 : 0,
-                    userEmail);
+            String[] genres = {
+                    "Azione", "Avventura", "Animazione", "Biografico", "Commedia",
+                    "Poliziesco", "Documentario", "Drammatico", "PerFamiglie", "Fantastico",
+                    "Noir", "GiocoAPremiTelevisivo", "Storico", "Horror", "Musica",
+                    "Musical", "Giallo", "Telegiornale", "Reality", "Sentimentale",
+                    "Fantascienza", "Cortometraggio", "Sportivo", "TalkShow", "Thriller",
+                    "Guerra", "Western"
+            };
 
-            stmt.executeUpdate(query);
+            StringBuilder queryBuilder = new StringBuilder("UPDATE generi_user SET ");
+            for (String genre : genres) {
+                queryBuilder.append(String.format("%s = %d, ", genre, generi.contains(genre) ? 1 : 0));
+            }
+            // Rimuove l'ultima virgola e spazio aggiunti
+            queryBuilder.setLength(queryBuilder.length() - 2);
+
+            queryBuilder.append(String.format(" WHERE email = '%s'", userEmail));
+            stmt.executeUpdate(queryBuilder.toString());
         } catch (SQLException e) {
             handleException(e);
         }
     }
+
 
     /** Ritorna un ResultSet contenente tutti i campi di client recuperati tramite la email */
     public static ResultSet loginUser(Statement stmt, String email) {

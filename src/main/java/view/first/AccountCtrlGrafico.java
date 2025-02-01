@@ -22,15 +22,15 @@ public class AccountCtrlGrafico<T extends ClientBean> implements Initializable {
     private Label emailText;
 
     @FXML
-    private TableView<CollezioneBean> collezioneTable;
+    private TableView<CollectionBean> collectionTable;
     @FXML
-    private TableColumn<CollezioneBean, String> collezioneNameColumn;
+    private TableColumn<CollectionBean, String> collectionNameColumn;
     @FXML
-    private TableColumn<CollezioneBean, List<String>> genreColumn;
+    private TableColumn<CollectionBean, List<String>> genreColumn;
     @FXML
-    private TableColumn<CollezioneBean, Boolean> approveColumn;
+    private TableColumn<CollectionBean, Boolean> approveColumn;
     @FXML
-    private TableColumn<CollezioneBean, String> linkColumn;
+    private TableColumn<CollectionBean, String> linkColumn;
 
     @FXML
     private CheckBox azione;
@@ -89,7 +89,7 @@ public class AccountCtrlGrafico<T extends ClientBean> implements Initializable {
 
     private T clientBean;
     private List<CheckBox> checkBoxList;
-    private ObservableList<CollezioneBean> observableList;
+    private ObservableList<CollectionBean> observableList;
     private SceneController sceneController;
 
     @Override
@@ -116,26 +116,26 @@ public class AccountCtrlGrafico<T extends ClientBean> implements Initializable {
 
         // Inizializza i dati nella GUI
         showUserInfo();
-        // Recupera e visualizza le collezione dell'utente
-        retriveCollezione();
+        // Recupera e visualizza le collection dell'utente
+        retriveCollection();
     }
 
-    /** Recupera tutte le collezione dell'utente */
-    public void retriveCollezione() {
+    /** Recupera tutte le collection dell'utente */
+    public void retriveCollection() {
         AccountCtrlApplicativo accountCtrlApplicativo = new AccountCtrlApplicativo();
 
-        // Recupera le collezione dell'utente
-        List<CollezioneBean> userColleziones = accountCtrlApplicativo.retrieveColleziones(clientBean);
+        // Recupera le collection dell'utente
+        List<CollectionBean> userCollectionss = accountCtrlApplicativo.retrieveCollectionss(clientBean);
 
         // Imposto la struttura delle colonne della Table View
-        List<TableColumn<CollezioneBean, ?>> columns = Arrays.asList(collezioneNameColumn, linkColumn, approveColumn, genreColumn);
-        List<String> nameColumns = Arrays.asList("collezioneName", "link", "approved", "collezioneGenre");
+        List<TableColumn<CollectionBean, ?>> columns = Arrays.asList(collectionNameColumn, linkColumn, approveColumn, genreColumn);
+        List<String> nameColumns = Arrays.asList("collectionName", "link", "approved", "collectionGenre");
         TableManager.setColumnsTableView(columns, nameColumns);
         linkColumn.setCellFactory(button -> new SingleButtonTableCell());
         approveColumn.setCellFactory(button -> new ImageButtonTableCell());
 
-        observableList = FXCollections.observableArrayList(userColleziones);
-        collezioneTable.setItems(observableList);
+        observableList = FXCollections.observableArrayList(userCollectionss);
+        collectionTable.setItems(observableList);
     }
 
     /** Gestisce il click sul pulsante Salva */
@@ -162,10 +162,16 @@ public class AccountCtrlGrafico<T extends ClientBean> implements Initializable {
         sceneController.goBack(event);
     }
 
-    /** Gestisce il click sul pulsante Aggiungi Collezione */
+    /** Gestisce il click sul pulsante Aggiungi Collection */
     @FXML
-    public void addCollezioneClick(ActionEvent event) {
-        // Passa alla schermata di caricamento della collezione, passando il bean del client
-        sceneController.goToScene(event, FxmlFileName.UPLOAD_COLLEZIONE_FXML, clientBean, observableList);
+    public void addCollectionClick(ActionEvent event) {
+        // Passa alla schermata di caricamento della collection, passando il bean del client
+        sceneController.goToScene(event, FxmlFileName.UPLOAD_COLLECTION_FXML, clientBean, observableList);
+    }
+    /** Gestisce il click sul pulsante Logout */
+    @FXML
+    public void onLogoutClick(ActionEvent event) {
+        clientBean = null; // Resetta il bean client (opzionale)
+        sceneController.goToSceneForLogout(event, FxmlFileName.LOGIN_FXML);
     }
 }

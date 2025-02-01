@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+    <Appenders>
+        <!-- Appender per la console -->
+        <Console name="Console" target="SYSTEM_OUT">
+            <!-- Layout per la formattazione del messaggio di log -->
+            <PatternLayout pattern="%message%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <!-- Logger di root con livello info -->
+        <Root level="info">
+            <!-- Aggiungi l'appender Console al logger root -->
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

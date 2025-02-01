@@ -1,33 +1,33 @@
 package view.first.utils;
 
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
-import view.first.PendingCollezioneCtrlGrafico;
+import view.first.PendingCollectionCtrlGrafico;
 
 
 // Classe TableCell personalizzata per aggiungere due bottoni nella cella
-public class DoubleButtonTableCell extends TableCell<CollezioneBean, Boolean> {
+public class DoubleButtonTableCell extends TableCell<CollectionBean, Boolean> {
 
     private final Button approveButton = new Button("V");
     private final Button rejectButton = new Button("X");
 
-    public DoubleButtonTableCell(PendingCollezioneCtrlGrafico pendingCollezioneCtrlGrafico) {
+    public DoubleButtonTableCell(PendingCollectionCtrlGrafico pendingCollectionCtrlGrafico) {
 
         approveButton.setOnAction(e -> {
-            TableRow<CollezioneBean> tableRow = getTableRow();
+            TableRow<CollectionBean> tableRow = getTableRow();
             if (tableRow != null) {
-                CollezioneBean collezioneBean = tableRow.getItem();
-                handlePendingButton(pendingCollezioneCtrlGrafico, collezioneBean, true);
+                CollectionBean collectionBean = tableRow.getItem();
+                handlePendingButton(pendingCollectionCtrlGrafico, collectionBean, true);
             }
         });
 
         rejectButton.setOnAction(e -> {
-            TableRow<CollezioneBean> tableRow = getTableRow();
+            TableRow<CollectionBean> tableRow = getTableRow();
             if (tableRow != null) {
-                CollezioneBean collezioneBean = tableRow.getItem();
-                handlePendingButton(pendingCollezioneCtrlGrafico, collezioneBean, false);
+                CollectionBean collectionBean = tableRow.getItem();
+                handlePendingButton(pendingCollectionCtrlGrafico, collectionBean, false);
             }
         });
 
@@ -39,8 +39,8 @@ public class DoubleButtonTableCell extends TableCell<CollezioneBean, Boolean> {
                 "-fx-min-width: -1; -fx-min-height: -1; -fx-background-radius: 50%; -fx-stroke: 50; -fx-border-radius: 50%;");
     }
 
-    public void handlePendingButton(PendingCollezioneCtrlGrafico pendingCollezioneCtrlGrafico, CollezioneBean collezioneBean, boolean approve) {
-        pendingCollezioneCtrlGrafico.handlerButton(collezioneBean,approve);
+    public void handlePendingButton(PendingCollectionCtrlGrafico pendingCollectionCtrlGrafico, CollectionBean collectionBean, boolean approve) {
+        pendingCollectionCtrlGrafico.handlerButton(collectionBean,approve);
     }
 
     @Override

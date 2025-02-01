@@ -1,6 +1,6 @@
 package view.first.utils;
 
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import engineering.others.Printer;
 import javafx.collections.*;
 import javafx.scene.control.*;
@@ -11,66 +11,66 @@ import java.util.List;
 public class TableManager {
     private boolean isUpdatingTableView = true;
 
-    /** Associa a ciascuna colonna i relativi metodi get di CollezioneBean
+    /** Associa a ciascuna colonna i relativi metodi get di CollectionBean
      * @param columns       è una lista di colonne, contiene le sole colonne semplici (no bottoni)
-     * @param nameColumns   è una lista di stringhe, che viene utilizzata per recuperare i dati dai metodi get del CollezioneBean
+     * @param nameColumns   è una lista di stringhe, che viene utilizzata per recuperare i dati dai metodi get del CollectionBean
      */
-    public static void setColumnsTableView(List<TableColumn<CollezioneBean, ?>> columns, List<String> nameColumns) {
+    public static void setColumnsTableView(List<TableColumn<CollectionBean, ?>> columns, List<String> nameColumns) {
 
         // Collega i dati alle colonne della TableView
         int index = 0;
-        for(TableColumn<CollezioneBean, ? > column:columns){
+        for(TableColumn<CollectionBean, ? > column:columns){
             column.setCellValueFactory(new PropertyValueFactory<>(nameColumns.get(index)));
             index++;
         }
     }
 
     /**
-     * @param collezioneTable è la tabella vera e propria
-     * @param colleziones     è la lista delle collezione da rappresentare
+     * @param collectionTable è la tabella vera e propria
+     * @param collectionss     è la lista delle collection da rappresentare
      */
-    public static void updateTable(TableView<CollezioneBean> collezioneTable, List<CollezioneBean> colleziones) {
+    public static void updateTable(TableView<CollectionBean> collectionTable, List<CollectionBean> collectionss) {
 
-        List<CollezioneBean> currentColleziones = collezioneTable.getItems();     // Ottenere la lista attuale di collezione dalla TableView
+        List<CollectionBean> currentCollectionss = collectionTable.getItems();     // Ottenere la lista attuale di collection dalla TableView
 
-        colleziones.removeAll(currentColleziones);                              // Rimuove le collezione già caricate, cosi da avere una lista di collezione nuove
+        collectionss.removeAll(currentCollectionss);                              // Rimuove le collection già caricate, cosi da avere una lista di collection nuove
 
-        ObservableList<CollezioneBean> collezioneData = FXCollections.observableArrayList(colleziones);
-        collezioneTable.setItems(collezioneData);                               // Aggiornare la TableView con la lista aggiornata di collezione
+        ObservableList<CollectionBean> collectionData = FXCollections.observableArrayList(collectionss);
+        collectionTable.setItems(collectionData);                               // Aggiornare la TableView con la lista aggiornata di collection
     }
 
     /**
-     * @param collezioneTable è la tabella vera e propria
-     * @param colleziones     è la lista delle collezione da rappresentare
+     * @param collectionTable è la tabella vera e propria
+     * @param collectionss     è la lista delle collection da rappresentare
      */
-    public static void addInTable(TableView<CollezioneBean> collezioneTable, List<CollezioneBean> colleziones) {
-        List<CollezioneBean> currentColleziones = collezioneTable.getItems(); // Ottenere la lista attuale di collezione dalla TableView
+    public static void addInTable(TableView<CollectionBean> collectionTable, List<CollectionBean> collectionss) {
+        List<CollectionBean> currentCollectionss = collectionTable.getItems(); // Ottenere la lista attuale di collection dalla TableView
 
-        colleziones.removeIf(collezione -> currentColleziones.stream().anyMatch(currentCollezione -> currentCollezione.getLink().equals(collezione.getLink())));
-        currentColleziones.addAll(colleziones);
+        collectionss.removeIf(collection -> currentCollectionss.stream().anyMatch(currentCollection -> currentCollection.getLink().equals(collection.getLink())));
+        currentCollectionss.addAll(collectionss);
 
-        ObservableList<CollezioneBean> collezioneData = FXCollections.observableArrayList(currentColleziones);
-        collezioneTable.setItems(collezioneData); // Aggiornare la TableView con la lista aggiornata di collezione
+        ObservableList<CollectionBean> collectionData = FXCollections.observableArrayList(currentCollectionss);
+        collectionTable.setItems(collectionData); // Aggiornare la TableView con la lista aggiornata di collection
     }
 
 
-    public ObservableList<CollezioneBean> handler(TableView<CollezioneBean> collezioneTable, List<CollezioneBean> collezioneBeanList) {
+    public ObservableList<CollectionBean> handler(TableView<CollectionBean> collectionTable, List<CollectionBean> collectionBeanList) {
 
-        ObservableList<CollezioneBean> observableList = FXCollections.observableList(collezioneBeanList);
-        collezioneTable.setItems(observableList);
+        ObservableList<CollectionBean> observableList = FXCollections.observableList(collectionBeanList);
+        collectionTable.setItems(observableList);
 
         // Aggiunta di un listener di modifica al ObservableList
-        observableList.addListener((ListChangeListener<CollezioneBean>) change -> {
+        observableList.addListener((ListChangeListener<CollectionBean>) change -> {
             while (change.next()) {
                 if (change.wasAdded() && isUpdatingTableView) { ///// non accade mai #########
                     Printer.logPrint(String.format("Elementi aggiunti: %s" , change.getAddedSubList()));
                     isUpdatingTableView = false;
-                    collezioneTable.getItems().addAll(change.getAddedSubList());
+                    collectionTable.getItems().addAll(change.getAddedSubList());
                     isUpdatingTableView = true;
                 } else if (change.wasRemoved() && isUpdatingTableView) {
                     Printer.logPrint(String.format("Elementi rimossi: %s", change.getRemoved()));
                     isUpdatingTableView = false;
-                    collezioneTable.getItems().removeAll(change.getRemoved());
+                    collectionTable.getItems().removeAll(change.getRemoved());
                     isUpdatingTableView = true;
                 }
             }

@@ -1,28 +1,28 @@
 package view.first.utils;
 
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 
 // Classe TableCell personalizzata per aggiungere due bottoni nella cella
-public class SingleButtonTableCell extends TableCell<CollezioneBean, String> {
+public class SingleButtonTableCell extends TableCell<CollectionBean, String> {
 
     private final Button linkButton = new Button("Copy");
 
     public SingleButtonTableCell() {
 
         linkButton.setOnAction(event -> {
-            CollezioneBean collezione = getTableView().getItems().get(getIndex());
-            // Ottieni l'oggetto Clipboard
+            CollectionBean collection = getTableView().getItems().get(getIndex());
+            // Ottieni l'oggetto Clicboard
             Clipboard clipboard = Clipboard.getSystemClipboard();
 
-            // Crea un oggetto ClipboardContent
+            // Crea un oggetto ClicboardContent
             ClipboardContent content = new ClipboardContent();
 
             // Aggiungi il testo alla clipboard
-            content.putString(collezione.getLink());
+            content.putString(collection.getLink());
 
             // Imposta il contenuto della clipboard
             clipboard.setContent(content);

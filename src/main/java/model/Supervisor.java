@@ -9,4 +9,9 @@ public class Supervisor extends Client {
         super.supervisor = true;
     }
 
+    public Supervisor(String username, String email, List<String> preferences,String password){
+        super(username, email, preferences,password);
+        super.supervisor = true;
+    }
+
 }

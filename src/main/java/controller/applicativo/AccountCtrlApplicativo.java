@@ -5,39 +5,40 @@ import engineering.dao.*;
 import engineering.exceptions.*;
 import engineering.others.Printer;
 import engineering.pattern.abstract_factory.DAOFactory;
-import engineering.pattern.observer.CollezioneCollection;
+import engineering.pattern.observer.CollectionCollectionss;
 import model.*;
+import model.Collection;
 
 import java.util.*;
 
 public class AccountCtrlApplicativo {
 
     /**
-     * Recupera tutte le collezione globali by username
+     * Recupera tutte le collection globali by username
      */
-    public List<CollezioneBean> retrieveColleziones(ClientBean clientBean) {
-        CollezioneDAO dao = DAOFactory.getDAOFactory().createCollezioneDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
+    public List<CollectionBean> retrieveCollectionss(ClientBean clientBean) {
+        CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
         String email = clientBean.getEmail();
 
-        // Recupero lista Collezione
-        List<Collezione> colleziones = dao.retrieveCollezionesByEmail(email);
+        // Recupero lista Collection
+        List<Collection> collectionss = dao.retrieveCollectionssByEmail(email);
 
-        ArrayList<CollezioneBean> collezionesBean = new ArrayList<>();
+        ArrayList<CollectionBean> collectionssBean = new ArrayList<>();
         try {
-            for (Collezione p : colleziones){
-                CollezioneBean pB = new CollezioneBean(p.getEmail(),p.getUsername(),p.getCollezioneName(),p.getLink(),p.getCollezioneGenre(),p.getApproved());
-                pB.setId(p.getId());
-                collezionesBean.add(pB);
+            for (Collection p : collectionss){
+                CollectionBean cb = new CollectionBean(p.getEmail(),p.getUsername(),p.getCollectionName(),p.getLink(),p.getCollectionGenre(),p.getApproved());
+                cb.setId(p.getId());
+                collectionssBean.add(cb);
             }
         } catch (LinkIsNotValidException e){
             // Non la valuto perché è un retrieve da persistenza, dove è stata caricata correttamente
             handleDAOException(e);
         }
 
-        return collezionesBean;
+        return collectionssBean;
     }
 
-    /** Utilizzata per aggiornare i generi musicali preferiti dell'utente in caso in cui prema il bottone Salva */
+    /** Utilizzata per aggiornare i generi preferiti dell'utente in caso in cui prema il bottone Salva */
     public void updateGenreUser(ClientBean clientBean){
         ClientDAO dao = DAOFactory.getDAOFactory().createClientDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
 
@@ -52,20 +53,20 @@ public class AccountCtrlApplicativo {
         dao.updateGenreClient(client);
     }
 
-    /** Utilizzata per permettere all'autore di eliminare le collezione
+    /** Utilizzata per permettere all'autore di eliminare le collection
      * Non è stato implementata l'eliminazione nel front-end, ma si nel back-end */
-    public Boolean deleteCollezione(CollezioneBean pB){
+    public Boolean deleteCollection(CollectionBean cb){
 
-        CollezioneDAO dao = DAOFactory.getDAOFactory().createCollezioneDAO(); // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
+        CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO(); // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
 
-        Collezione collezione = new Collezione(pB.getEmail(), pB.getUsername(), pB.getCollezioneName(), pB.getLink(), pB.getCollezioneGenre(), pB.getApproved());
-        collezione.setId(pB.getId());
+        Collection collection = new Collection(cb.getEmail(), cb.getUsername(), cb.getCollectionName(), cb.getLink(), cb.getCollectionGenre(), cb.getApproved());
+        collection.setId(cb.getId());
 
-        dao.deleteCollezione(collezione);
+        dao.deleteCollection(collection);
 
-        if(collezione.getApproved()) {
+        if(collection.getApproved()) {
             /* OBSERVER -> REMOVE PER FAR AGGIORNARE LA HOME PAGE */
-            CollezioneCollection.getInstance().removeCollezione(collezione);
+            CollectionCollectionss.getInstance().removeCollection(collection);
         }
         return true;
     }

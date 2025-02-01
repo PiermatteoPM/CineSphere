@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane stylesheets="@../styles/styles.css" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="view.first.FilterCtrlGrafico">
+    <VBox alignment="CENTER" spacing="50.0" AnchorPane.bottomAnchor="25.0">
+        <opaqueInsets>
+            <Insets />
+        </opaqueInsets>
+        <HBox alignment="CENTER" spacing="75.0">
+            <padding>
+                <Insets left="50.0" right="25.0" top="50.0" />
+            </padding>
+            <VBox alignment="CENTER" spacing="95.0">
+                <HBox alignment="CENTER" spacing="20.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="15.0">
+                    <VBox spacing="5.0">
+                        <CheckBox fx:id="azione" mnemonicParsing="false" text="Azione" />
+                        <CheckBox fx:id="biografico" mnemonicParsing="false" text="Biografico" />
+                        <CheckBox fx:id="documentario" mnemonicParsing="false" text="Documentario" />
+                        <CheckBox fx:id="fantastico" mnemonicParsing="false" text="Fantastico" />
+                        <CheckBox fx:id="storico" mnemonicParsing="false" text="Storico" />
+                        <CheckBox fx:id="horror" mnemonicParsing="false" text="Horror" />
+                        <CheckBox fx:id="musica" mnemonicParsing="false" text="Musica" />
+                        <CheckBox fx:id="musical" mnemonicParsing="false" text="Musical" />
+                        <CheckBox fx:id="giallo" mnemonicParsing="false" text="Giallo" />
+                    </VBox>
+
+                    <VBox spacing="5.0">
+                        <CheckBox fx:id="drammatico" mnemonicParsing="false" text="Drammatico" />
+                        <CheckBox fx:id="giocoAPremiTelevisivo" mnemonicParsing="false" text="GiocoAPremiTelevisivo" />
+                        <CheckBox fx:id="avventura" mnemonicParsing="false" text="Avventura" />
+                        <CheckBox fx:id="noir" mnemonicParsing="false" text="Noir" />
+                        <CheckBox fx:id="telegiornale" mnemonicParsing="false" text="Telegiornale" />
+                        <CheckBox fx:id="reality" mnemonicParsing="false" text="Reality" />
+                        <CheckBox fx:id="sentimentale" mnemonicParsing="false" text="Sentimentale" />
+                        <CheckBox fx:id="fantascienza" mnemonicParsing="false" text="Fantascienza" />
+                        <CheckBox fx:id="cortometraggio" mnemonicParsing="false" text="Cortometraggio" />
+                    </VBox>
+
+                    <VBox spacing="5.0">
+                        <CheckBox fx:id="animazione" mnemonicParsing="false" text="Animazione" />
+                        <CheckBox fx:id="commedia" mnemonicParsing="false" text="Commedia" />
+                        <CheckBox fx:id="perFamiglie" mnemonicParsing="false" text="PerFamiglie" />
+                        <CheckBox fx:id="poliziesco" mnemonicParsing="false" text="Poliziesco" />
+                        <CheckBox fx:id="sportivo" mnemonicParsing="false" text="Sportivo" />
+                        <CheckBox fx:id="talkShow" mnemonicParsing="false" text="TalkShow" />
+                        <CheckBox fx:id="thriller" mnemonicParsing="false" text="Thriller" />
+                        <CheckBox fx:id="guerra" mnemonicParsing="false" text="Guerra" />
+                        <CheckBox fx:id="western" mnemonicParsing="false" text="Western" />
+                    </VBox>
+                </HBox>
+            </VBox>
+            <VBox alignment="CENTER" spacing="85.0" />
+        </HBox>
+        <HBox alignment="CENTER" spacing="125.0">
+            <Button alignment="CENTER" contentDisplay="CENTER" onAction="#onResetClick" text="Reset Filters" textAlignment="CENTER" textOverrun="CLIP" />
+            <Button alignment="CENTER" contentDisplay="CENTER" onAction="#onApplyClick" text="Apply Filters" textAlignment="CENTER" textOverrun="CLIP" />
+        </HBox>
+    </VBox>
+</AnchorPane>

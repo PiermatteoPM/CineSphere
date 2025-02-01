@@ -91,11 +91,11 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `user`.`collezione_utente`
+-- Table `user`.`collection_utente`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `user`.`collezione_utente` (
+CREATE TABLE IF NOT EXISTS `user`.`collection_utente` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `nameCollezione` VARCHAR(45) NOT NULL,
+  `nameCollection` VARCHAR(45) NOT NULL,
   `email` VARCHAR(45) NOT NULL,
   `username` VARCHAR(45) NOT NULL,
   `link` VARCHAR(512) NOT NULL,
@@ -127,10 +127,10 @@ CREATE TABLE IF NOT EXISTS `user`.`collezione_utente` (
   `Thriller` TINYINT NULL DEFAULT NULL,
   `Guerra` TINYINT NULL DEFAULT NULL,
   `Western` TINYINT NULL DEFAULT NULL,
-  PRIMARY KEY (`id`, `nameCollezione`, `link`),
-  INDEX `fk_Collezione_Utente_user1_idx` (`email` ASC) VISIBLE,
-  INDEX `collezione_utente_user_idx` (`username` ASC) VISIBLE,
-  CONSTRAINT `collezione_utente_user`
+  PRIMARY KEY (`id`, `nameCollection`, `link`),
+  INDEX `fk_Collection_Utente_user1_idx` (`email` ASC) VISIBLE,
+  INDEX `collection_utente_user_idx` (`username` ASC) VISIBLE,
+  CONSTRAINT `collection_utente_user`
     FOREIGN KEY (`username`)
     REFERENCES `user`.`user` (`username`))
 ENGINE = InnoDB

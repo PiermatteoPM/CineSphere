@@ -2,7 +2,7 @@ package view.second;
 
 import controller.applicativo.AccountCtrlApplicativo;
 import engineering.bean.ClientBean;
-import engineering.bean.CollezioneBean;
+import engineering.bean.CollectionBean;
 import engineering.others.Printer;
 import view.second.utils.GenreManager;
 
@@ -37,8 +37,8 @@ public class AccountCLI {
             displayUserInfo(clientBean);
 
             // Mostra il menu
-            Printer.println("1. Carica nuova Collezione");
-            Printer.println("2. Reimposta le tue preferenze musicali");
+            Printer.println("1. Carica nuova Collection");
+            Printer.println("2. Reimposta le tue preferenze");
             Printer.println("0. Esci");
 
             Printer.print("Scegli un'opzione: ");
@@ -47,7 +47,7 @@ public class AccountCLI {
 
             switch (choice) {
                 case 1:
-                    addCollezione();
+                    addCollection();
                     break;
                 case 2:
                     updatePreferences();
@@ -72,17 +72,17 @@ public class AccountCLI {
                 Printer.println("Nessun genere preferito impostato.");
             }
 
-            Printer.println("Le tue collezione:");
-            displayUserColleziones();
+            Printer.println("Le tue collection:");
+            displayUserCollectionss();
         }
     }
 
-    private void displayUserColleziones() {
+    private void displayUserCollectionss() {
         AccountCtrlApplicativo accountCtrlApplicativo = new AccountCtrlApplicativo();
-        List<CollezioneBean> userColleziones = accountCtrlApplicativo.retrieveColleziones(clientBean);
-        for (CollezioneBean collezione : userColleziones) {
-            String approvalStatus = collezione.getApproved() ? "Approved" : "In attesa";
-            Printer.println(String.format(("%s - Titolo: %s, Link: %s"), approvalStatus, collezione.getCollezioneName(), collezione.getLink()));
+        List<CollectionBean> userCollectionss = accountCtrlApplicativo.retrieveCollectionss(clientBean);
+        for (CollectionBean collection : userCollectionss) {
+            String approvalStatus = collection.getApproved() ? "Approved" : "In attesa";
+            Printer.println(String.format(("%s - Titolo: %s, Link: %s"), approvalStatus, collection.getCollectionName(), collection.getLink()));
         }
     }
 
@@ -93,7 +93,7 @@ public class AccountCLI {
         Printer.println("Generi disponibili:");
         genreManager.printGenres(availableGenres);
 
-        Printer.print("Inserisci i numeri corrispondenti ai generi musicali contenuti nella Collezione (separati da virgola): ");
+        Printer.print("Inserisci i numeri corrispondenti ai generi contenuti nella Collection (separati da virgola): ");
         String genreInput = scanner.next();
 
         List<String> preferences = genreManager.extractGenres(availableGenres, genreInput);
@@ -104,9 +104,9 @@ public class AccountCLI {
         Printer.println("Preferenze aggiornate");
     }
 
-    private void addCollezione() {
-        AddCollezioneCLI addCollezioneCLI = new AddCollezioneCLI();
-        addCollezioneCLI.setClientBean(clientBean);
-        addCollezioneCLI.start();
+    private void addCollection() {
+        AddCollectionCLI addCollectionCLI = new AddCollectionCLI();
+        addCollectionCLI.setClientBean(clientBean);
+        addCollectionCLI.start();
     }
 }

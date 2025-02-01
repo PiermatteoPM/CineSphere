@@ -6,6 +6,7 @@ import engineering.exceptions.*;
 import engineering.pattern.abstract_factory.DAOFactory;
 import model.*;
 
+
 import java.util.*;
 
 public class LoginCtrlApplicativo {

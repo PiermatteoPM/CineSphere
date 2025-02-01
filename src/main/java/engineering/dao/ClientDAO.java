@@ -18,7 +18,7 @@ public interface ClientDAO {
     /** Ottiene la password associata all'email */
     String getPasswordByEmail(String email) throws UserDoesNotExistException;
 
-    /** Aggiorna i generi musicali preferiti dall'utente, recuperato tramite email*/
+    /** Aggiorna i generi preferiti dall'utente, recuperato tramite email*/
     void updateGenreClient(Client client);
 
     void tryCredentialExisting(Login login) throws EmailAlreadyInUseException, UsernameAlreadyInUseException;

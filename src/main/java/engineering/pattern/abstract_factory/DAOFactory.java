@@ -14,7 +14,8 @@ public abstract class DAOFactory {
     }
 
     /** Recupera dal file config.properties il tipo di persistenza utilizzata,
-     * se non è possibile come default viene utilizzato MYSQL */
+
+     se non è possibile come default viene utilizzato MYSQL */
     public static synchronized DAOFactory getDAOFactory(){
         if ( me == null ){
             Properties properties = new Properties();
@@ -32,13 +33,15 @@ public abstract class DAOFactory {
                 me = new MySQLDAOFactory();
             } else if (anEnum == Enum.JSON) {
                 me = new JsonDAOFactory();
+            } else if (anEnum == Enum.DEMO) {
+                me = new DemoDAOFactory();
             }
         }
         return me;
     }
 
-    public abstract ClientDAO createClientDAO();
-    public abstract CollezioneDAO createCollezioneDAO();
-    public abstract NoticeDAO createNoticeDAO();
+        public abstract ClientDAO createClientDAO();
+        public abstract CollectionDAO createCollectionDAO();
+        public abstract NoticeDAO createNoticeDAO();
 
-}
+    }

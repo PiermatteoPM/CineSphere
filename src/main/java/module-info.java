@@ -5,6 +5,8 @@ module logic {
     requires com.google.gson;
     requires java.sql;
     requires commons.validator;
+    requires java.desktop;
+    requires org.apache.logging.log4j;
 
     exports start;
     opens start to javafx.fxml;

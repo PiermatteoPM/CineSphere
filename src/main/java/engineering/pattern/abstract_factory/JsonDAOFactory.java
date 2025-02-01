@@ -9,8 +9,8 @@ public class JsonDAOFactory extends DAOFactory {
     }
 
     @Override
-    public CollezioneDAO createCollezioneDAO() {
-        return new CollezioneDAOJSON();
+    public CollectionDAO createCollectionDAO() {
+        return new CollectionDAOJSON();
     }
 
     @Override

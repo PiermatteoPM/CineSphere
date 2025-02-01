@@ -9,8 +9,8 @@ public class FxmlFileName {
     public static final String ACCOUNT_FXML = "/view/account.fxml";
 
     public static final String POP_UP_FXML = "/view/textPopUp.fxml";
-    public static final String POP_UP_FXML_FILTER = "/view/filterCollezione.fxml";
+    public static final String POP_UP_FXML_FILTER = "/view/filterCollection.fxml";
 
-    public static final String MANAGER_COLLEZIONE_FXML = "/view/pendingColleziones.fxml";
-    public static final String UPLOAD_COLLEZIONE_FXML = "/view/addCollezione.fxml";
+    public static final String MANAGER_COLLECTION_FXML = "/view/pendingCollectionss.fxml";
+    public static final String UPLOAD_COLLECTION_FXML = "/view/addCollection.fxml";
 }

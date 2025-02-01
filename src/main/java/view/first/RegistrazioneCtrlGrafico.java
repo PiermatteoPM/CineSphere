@@ -3,10 +3,8 @@ package view.first;
 import controller.applicativo.RegistrazioneCtrlApplicativo;
 import engineering.bean.*;
 import engineering.exceptions.*;
-
 import engineering.others.Printer;
 import view.first.utils.*;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.*;
 import javafx.scene.control.*;

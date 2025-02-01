@@ -22,15 +22,15 @@ public class SceneController {
     private final Deque<Scene> sceneStack;
     private static final String SET_ATTRIBUTES = "setAttributes"; //Funzione esistente in ogni controller grafico
 
-    /** Utilizzato da Home e Account per passare la Collezione ad Add */
+    /** Utilizzato da Home e Account per passare la Collection ad Add */
     @FXML
-    public <T> void goToScene(ActionEvent event, String fxmlPath, ClientBean clientBean, CollezioneBean collezioneBean, ObservableList<CollezioneBean> observableList) {
+    public <T> void goToScene(ActionEvent event, String fxmlPath, ClientBean clientBean, CollectionBean collectionBean, ObservableList<CollectionBean> observableList) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
             Parent root = loader.load();
 
             T controller = loader.getController();
-            setAttributes(controller, clientBean, collezioneBean, observableList);
+            setAttributes(controller, clientBean, collectionBean, observableList);
 
             switchScene(event, root);
         } catch (IOException e) {
@@ -38,9 +38,9 @@ public class SceneController {
         }
     }
 
-    /** Utilizzato da Home e Account per passare la Collezione ad Add */
+    /** Utilizzato da Home e Account per passare la Collection ad Add */
     @FXML
-    public void goToScene(ActionEvent event, String fxmlPath, ClientBean clientBean,ObservableList<CollezioneBean> observableList) {
+    public void goToScene(ActionEvent event, String fxmlPath, ClientBean clientBean,ObservableList<CollectionBean> observableList) {
         goToScene(event, fxmlPath, clientBean, null, observableList);
     }
 
@@ -53,6 +53,21 @@ public class SceneController {
     public void goToScene(ActionEvent event, String fxmlPath) {
         goToScene(event, fxmlPath, null, null, null);
     }
+
+    @FXML
+    public void goToSceneForLogout(ActionEvent event, String fxmlPath) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource(fxmlPath));
+            Parent root = loader.load();
+
+            // Cambia scena
+            switchScene(event, root);
+        } catch (IOException e) {
+            handleSceneLoadError(e);
+        }
+    }
+
+
 
     private void switchScene(ActionEvent event, Parent root) {
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -70,11 +85,11 @@ public class SceneController {
      * Registration: setAttributes(SceneController sceneController)
      * TextPopUp: setAttributes(SceneController sceneController)
 
-     * AddCollezione: setAttributes(SceneController sceneController, T clientBean, ObservableList<CollezioneBean> observableList)
-     * Filter: setAttributes(SceneController sceneController, CollezioneBean collezioneBean)
+     * AddCollection: setAttributes(SceneController sceneController, T clientBean, ObservableList<CollectionBean> observableList)
+     * Filter: setAttributes(SceneController sceneController, CollectionBean collectionBean)
      * */
-    private void setAttributes(Object controller, ClientBean clientBean, CollezioneBean collezioneBean, ObservableList<CollezioneBean> observableList) {
-        Class<?>[] parameterTypes = {ClientBean.class, CollezioneBean.class, ObservableList.class};
+    private void setAttributes(Object controller, ClientBean clientBean, CollectionBean collectionBean, ObservableList<CollectionBean> observableList) {
+        Class<?>[] parameterTypes = {ClientBean.class, CollectionBean.class, ObservableList.class};
 
         for (Class<?> paramType : parameterTypes) {
             try {
@@ -85,8 +100,8 @@ public class SceneController {
                 // Verifica il tipo di parametro e invoca il metodo corrispondente solo se il parametro non è null
                 if (paramType == ClientBean.class) {
                     setAttributes.invoke(controller, clientBean, this);         // Account e HomePage ok
-                } else if (paramType == CollezioneBean.class && collezioneBean != null) {
-                    setAttributes.invoke(controller, collezioneBean, this);       // Filter
+                } else if (paramType == CollectionBean.class && collectionBean != null) {
+                    setAttributes.invoke(controller, collectionBean, this);       // Filter
                 }
                 return; // Esci dal metodo se trova una firma valida
 
@@ -112,10 +127,10 @@ public class SceneController {
             //
         }
 
-        // Se non trova alcuna firma valida, gestisci il caso generico con una firma (SceneController, T, ObservableList<CollezioneBean>)
+        // Se non trova alcuna firma valida, gestisci il caso generico con una firma (SceneController, T, ObservableList<CollectionBean>)
         try {
-            Method setAttributes = controller.getClass().getMethod(SET_ATTRIBUTES, CollezioneBean.class);
-            setAttributes.invoke(controller, collezioneBean);
+            Method setAttributes = controller.getClass().getMethod(SET_ATTRIBUTES, CollectionBean.class);
+            setAttributes.invoke(controller, collectionBean);
             return;
         } catch (IllegalAccessException | InvocationTargetException e) {
             // Gestione dell'errore in caso di problemi con la riflessione
@@ -125,7 +140,7 @@ public class SceneController {
             //
         }
 
-        // Se non trova alcuna firma valida, gestisci il caso generico con una firma (SceneController, T, ObservableList<CollezioneBean>)
+        // Se non trova alcuna firma valida, gestisci il caso generico con una firma (SceneController, T, ObservableList<CollectionBean>)
         try {
             Method setAttributes = controller.getClass().getMethod(SET_ATTRIBUTES, ClientBean.class, ObservableList.class,  SceneController.class);
             setAttributes.invoke(controller, clientBean, observableList, this);
@@ -184,7 +199,7 @@ public class SceneController {
         }
     }
 
-    public void goToFilterPopUp(ActionEvent event, ClientBean clientBean, CollezioneBean collezioneBean, HomePageCtrlGrafico<?> istanza) {
+    public void goToFilterPopUp(ActionEvent event, ClientBean clientBean, CollectionBean collectionBean, HomePageCtrlGrafico<?> istanza) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource(FxmlFileName.POP_UP_FXML_FILTER));
             Parent root = loader.load();
@@ -192,7 +207,7 @@ public class SceneController {
             // Ottieni l'istanza del controller
             FilterCtrlGrafico controller = loader.getController();
             controller.setHomeInstance(istanza);
-            setAttributes(controller, clientBean, collezioneBean, null);
+            setAttributes(controller, clientBean, collectionBean, null);
 
             // Stage di partenza
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
@@ -214,6 +229,5 @@ public class SceneController {
     private void handleSceneLoadError(Exception e) {
         Printer.errorPrint(String.format("SceneController: %s", e.getMessage()));
     }
-
 }
 

@@ -8,6 +8,7 @@ public abstract class Client {
     private String email;
     private String username;
     private List<String> preferences;
+    private String password;
 
     protected boolean supervisor;
 
@@ -18,6 +19,13 @@ public abstract class Client {
         this.username = username;
         this.email = email;
         this.preferences = preferences;
+    }
+
+    protected Client(String username, String email, List<String> preferences,String password){
+        this.username = username;
+        this.email = email;
+        this.preferences = preferences;
+        this.password = password;
     }
 
     public void setEmail(String email) {
@@ -41,7 +49,15 @@ public abstract class Client {
         return preferences;
     }
 
+    public String getPassword(){
+        return password;
+    }
+
     public boolean isSupervisor() {
         return supervisor;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
