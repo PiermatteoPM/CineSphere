@@ -22,8 +22,7 @@ public abstract class Subject {
         observers.add(newObserver) ;
     }
 
-    /** Rimuove un observer dalla lista dei subscribers, non viene mai usato ma per correttezza
-     *  e completezza lo abbimo aggiunto */
+    /** Rimuove un observer dalla lista dei subscribers */
     public void detach(Observer removeObserver) {
         observers.remove(removeObserver) ;
     }
@@ -31,12 +30,11 @@ public abstract class Subject {
     /** Implementato con un loop su tutti i ConcreteObserver, dove ciascuno di essi chiama la funzione update()
      * Viene eseguita dal ConcreteSubject (il publisher) per notificare il suo cambio di stato
 
-     * È BUONA NORMA RENDERLO PRIVATO PERCHÈ SOLO CONCRETEOBSERVER DOVREBBE CHIAMARLO
-     * Sarebbe meglio usare un livello di accesso più restrittivo
-     * (come private) per evitare modifiche indesiderate da altre classi */
+     * È BUONA NORMA RENDERLO PRIVATO PERCHÈ SOLO CONCRETEOBSERVER DOVREBBE CHIAMARLO */
     protected void notifyObservers() {
         for (Observer observer : observers) {
             observer.update();
         }
     }
+
 }

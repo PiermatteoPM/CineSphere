@@ -3,7 +3,7 @@ package engineering.bean;
 import engineering.exceptions.InvalidEmailException;
 
 import java.util.List;
-//standard
+
 public class SupervisorBean extends ClientBean {
 
     public SupervisorBean(){

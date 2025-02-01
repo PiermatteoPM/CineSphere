@@ -15,7 +15,7 @@ public class CollectionDAOJSON implements CollectionDAO {
     private static final String ERROR_IMPLEMENTATION = "Non è stato implementato in JSON";
 
     /**
-     * Questo metodo inserisce la collection sulla cartella del singolo utente
+     * Questo metodo inserisce la collection sia sulla cartella del singolo utente
      * Aggiunge inoltre sulle cartelle generali delle collection approvate e delle collection in attesa di approvazione
      */
     public void insertCollection(Collection collection) throws CollectionLinkAlreadyInUseException {
@@ -26,7 +26,7 @@ public class CollectionDAOJSON implements CollectionDAO {
             // Crea la directory utente se non esiste
             Files.createDirectories(userDirectory);
 
-            // Genera un UUID univoco (userUniqueID)
+            // Genera un UUID univoco
             String uniqueId = UUID.randomUUID().toString();
 
             // Imposta l'ID della collection

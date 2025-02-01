@@ -20,9 +20,7 @@ public interface CollectionDAO {
 
     /** Recupera tutte le collection dell'utente dall'email */
     List<Collection> retrieveCollectionssByEmail(String email);
-    /**recupera tutte le collection in attesa*/
     List<Collection> retrievePendingCollectionss();
-    /**recupera solo quelle approvate*/
     List<Collection> retrieveApprovedCollectionss();
 
 

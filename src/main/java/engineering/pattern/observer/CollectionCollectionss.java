@@ -8,15 +8,14 @@ import java.util.*;
  * se viene modificata la CollectionCollectionss tramite i metodi addCollection o removeCollection, vengono successivamente
  * informati tutti gli observers(subscribers) utilizzando il metodo notifyObservers.
 
- * Questo model rappresenta la lista di collezioni approvate.
+ * Questo model rappresenta la lista di Collection approvate.
 
  * Viene utilizzato per aggiornare le istanze di HomePageControllerGrafico a ogni nuova aggiunta di una collection.
  * */
 public class CollectionCollectionss extends Subject {
-
     private static CollectionCollectionss collectionCollection = null;
 
-    /** Stato del subject, contiene tutte le collezioni */
+    /** Stato del subject */
     private List<Collection> allCollectionss = new ArrayList<>();
 
     /** Singleton poiché tutti gli utenti hanno la stessa vista dello strato di persistenza */
@@ -31,7 +30,11 @@ public class CollectionCollectionss extends Subject {
     private CollectionCollectionss(){
 
     }
-    /**metodo che aggiunge una collezione ed notifica tutti gli osservatori*/
+
+    /** Metodo setState()
+     * Utilizzata da AddCollectionCtrlGrafico se il supervisor carica una collection direttamente
+     * Utilizzata da PendingCollectionCtrlGrafico se il supervisor accetta una collection di un utente
+     * */
     public void addCollection(Collection collection) {
         allCollectionss.add(collection);
         notifyObservers();
@@ -44,7 +47,9 @@ public class CollectionCollectionss extends Subject {
     }
 
     /**
-     * @return tutte le collezioni
+     * Metodo getState() in teoria utilizzato dai subscribers una volta notificati di dover svolgere un update() ?
+     *
+     * @return tutte le collection
      */
     public List<Collection> getState(){
         return allCollectionss;

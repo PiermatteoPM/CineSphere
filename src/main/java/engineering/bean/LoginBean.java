@@ -8,7 +8,7 @@ public class LoginBean extends ClientBean {
 
     public LoginBean(){}
 
-    /** Utilizzato in fase di login, può ricevere un eccezione */
+    /** Utilizzato in fase di login */
     public LoginBean(String email, String password) throws InvalidEmailException {
         setEmail(email);
         setPassword(password);

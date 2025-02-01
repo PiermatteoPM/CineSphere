@@ -5,13 +5,14 @@ import model.*;
 
 public interface ClientDAO {
 
-    /** Inserimento dell'utente in persistenza*/
+    /** Inserimento dell'utente in persistenza
+     * Valore di ritorno booleano per verificare la correttezza dell'operazione */
     void insertClient(Login registration) throws EmailAlreadyInUseException, UsernameAlreadyInUseException;
 
     /** Recupera le informazioni di un utente in persistenza, ottenuta dall'email */
     Client loadClient(Login login) throws UserDoesNotExistException;
 
-    /** Recupera delle informazioni di un utente dalla persistenza, ottenuta dall'username unico */
+    /** Retrive delle informazioni di un utente dalla persistenza, ottenuta dall'username che abbiamo detto essere unico */
     Client retrieveClientByUsername(String username) throws UserDoesNotExistException;
 
     /** Ottiene la password associata all'email */
