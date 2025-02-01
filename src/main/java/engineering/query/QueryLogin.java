@@ -51,24 +51,21 @@ public class QueryLogin {
     /** Aggiorna i generi preferiti dell'utente */
     public static void uploadGeneri(Statement stmt, String userEmail, List<String> generi) {
         try {
-            String[] genres = {
-                    "Azione", "Avventura", "Animazione", "Biografico", "Commedia",
-                    "Poliziesco", "Documentario", "Drammatico", "PerFamiglie", "Fantastico",
-                    "Noir", "GiocoAPremiTelevisivo", "Storico", "Horror", "Musica",
-                    "Musical", "Giallo", "Telegiornale", "Reality", "Sentimentale",
-                    "Fantascienza", "Cortometraggio", "Sportivo", "TalkShow", "Thriller",
-                    "Guerra", "Western"
-            };
-
+            // Costruisci la query di aggiornamento in modo più sicuro
             StringBuilder queryBuilder = new StringBuilder("UPDATE generi_user SET ");
-            for (String genre : genres) {
-                queryBuilder.append(String.format("%s = %d, ", genre, generi.contains(genre) ? 1 : 0));
-            }
-            // Rimuove l'ultima virgola e spazio aggiunti
-            queryBuilder.setLength(queryBuilder.length() - 2);
+            String[] genres = {"Azione", "Avventura", "Animazione", "Biografico", "Commedia", "Poliziesco", "Documentario", "Drammatico", "PerFamiglie", "Fantastico", "Noir", "GiocoAPremiTelevisivo", "Storico", "Horror", "Musica", "Musical", "Giallo", "Telegiornale", "Reality", "Sentimentale", "Fantascienza", "Cortometraggio", "Sportivo", "TalkShow", "Thriller", "Guerra", "Western"};
 
-            queryBuilder.append(String.format(" WHERE email = '%s'", userEmail));
-            stmt.executeUpdate(queryBuilder.toString());
+            for (String genre : genres) {
+                queryBuilder.append(genre).append(" = ").append(generi.contains(genre) ? 1 : 0).append(", ");
+            }
+
+            queryBuilder.setLength(queryBuilder.length() - 2); // Rimuove l'ultima virgola
+            queryBuilder.append(" WHERE email = ?");
+
+            try (PreparedStatement pstmt = stmt.getConnection().prepareStatement(queryBuilder.toString())) {
+                pstmt.setString(1, userEmail);
+                pstmt.executeUpdate();
+            }
         } catch (SQLException e) {
             handleException(e);
         }
