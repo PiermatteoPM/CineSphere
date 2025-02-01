@@ -1,17 +1,19 @@
 package engineering.bean;
 
+/**standard*/
+
 public class NoticeBean {
 
     private String title;
     private String body;
     private String email;
-
+    /**costruttore*/
     public NoticeBean(String title, String body,String email){
         setTitle(title);
         setBody(body);
         setEmail(email);
     }
-
+    /**getter e setter*/
     public void setTitle(String title) {
         this.title = title;
     }

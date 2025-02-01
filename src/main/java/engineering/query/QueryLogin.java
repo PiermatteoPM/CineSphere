@@ -48,7 +48,6 @@ public class QueryLogin {
         }
     }
 
-    /** Aggiorna i generi preferiti dell'utente */
     public static void uploadGeneri(Statement stmt, String userEmail, List<String> generi) {
         try {
             // Costruisci la query di aggiornamento in modo più sicuro

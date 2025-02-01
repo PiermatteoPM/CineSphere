@@ -10,24 +10,27 @@ public abstract class Client {
     private List<String> preferences;
     private String password;
 
-    protected boolean supervisor;
+    protected boolean supervisor; /**permette di dare dei privilegi diversi se impostato a true*/
 
-    protected Client(){
-    }
+    /** creazione di un'istanza senza inserire parametri*/
+    protected Client(){}
 
+    /** creazione di un oggetto client con i parametri per ogni cliente, senza password, quindi utile
+     * per visualizzare le informazioni */
     protected Client(String username, String email, List<String> preferences){
         this.username = username;
         this.email = email;
         this.preferences = preferences;
     }
-
+    /** utile quando si crea un utente e salvare tutte le sue informazioni, questo costruttore e la password sono
+     * state aggiunte per permettere il funzionamento della parte demo*/
     protected Client(String username, String email, List<String> preferences,String password){
         this.username = username;
         this.email = email;
         this.preferences = preferences;
         this.password = password;
     }
-
+    /** getter e setter, quelli riguardante la password sono state aggiunte per la demo*/
     public void setEmail(String email) {
         this.email = email;
     }

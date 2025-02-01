@@ -3,7 +3,7 @@ package engineering.bean;
 import engineering.exceptions.InvalidEmailException;
 
 import java.util.List;
-
+/**molto standard anch'essa*/
 public class UserBean extends ClientBean{
 
     private List<NoticeBean> notices;

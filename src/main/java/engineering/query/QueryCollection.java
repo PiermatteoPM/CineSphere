@@ -6,11 +6,18 @@ import model.Collection;
 import java.sql.*;
 import java.util.List;
 
+/**static mi indica che il metodo appartiene alla classe stessa e non ad una sua istanza, di esso esiste solo
+ * un'implentazione ed è unica. Può essere richiamato più volte da tutti senza creare un istanza di
+ * QueryCollection (se publico però)*/
+
 public class QueryCollection {
 
     private QueryCollection(){}
 
-    /** Carica la collection sul database. */
+    /**Questo metodo inserisce una collection nel database.
+     Riceve un oggetto Statement per eseguire la query SQL.
+     Recupera i dati della collection (email, username, link, nameCollection, collectionGenre).
+     Converte approved in un valore 0 o 1 per il database.*/
     public static void insertCollection(Statement stmt, Collection collection) throws SQLException {
 
         String email = collection.getEmail();
@@ -20,7 +27,7 @@ public class QueryCollection {
         List<String> collectionGenre = collection.getCollectionGenre();
 
         int approved;
-        if(collection.getApproved()){
+        if(collection.getApproved()){ //è un boolean approed , quindi lo converte in 0 o 1 per il database( si poteva anche far rimanere boolean credo)
             approved = 1;
         } else {
             approved = 0;
@@ -75,7 +82,7 @@ public class QueryCollection {
 
 
     /** Recupera tutta la collection_utente, va usata con retriveGenreCollection per ottenere
-     * i generi delle collection caricate */
+     * i generi delle collezioni caricate, non usato mai */
     public static ResultSet retriveCollectionClientByUsername(Statement stmt, String username) throws SQLException {
         String sql = String.format(Queries.SELECT_COLLECTION_BY_USER,username);
         return stmt.executeQuery(sql);
@@ -88,7 +95,7 @@ public class QueryCollection {
         return stmt.executeQuery(sql);
     }
 
-    /** Recupera da GENERI, i generi della collection passata come id */
+    /** Recupera da GENERI, i generi della collection passata come id, non usati mai */
     public static ResultSet retrieveGenreCollectionById(Statement stmt, int id) throws SQLException {
         String sql = String.format(Queries.SELECT_GENRE_USER_QUERY,id);
         return stmt.executeQuery(sql);
@@ -155,7 +162,7 @@ public class QueryCollection {
     }
 
 
-    /** Non dovrebbe servire */
+    /** Non utilizzato*/
     public static ResultSet retrieveIDbyEmail(Statement stmt, String email) throws SQLException {
         String sql = String.format(Queries.SELECT_ID_BY_EMAIL, email);
         return stmt.executeQuery(sql);

@@ -10,6 +10,12 @@ import java.util.List;
 public class CollectionDAODemo implements CollectionDAO {
 
     private static List<Collection> collections = new ArrayList<>();
+    //se voglio aggiungerle già
+    /**static {
+     collections.add(new Collection("user1", "... ,"user1@example.com", true));
+     collections.add(new Collection("user2", "... ,"user2@example.com", false));
+     collections.add(new Collection("user3", "... ,"user3@example.com", true));
+     }*/
 
     @Override
     public void insertCollection(Collection collection) throws CollectionLinkAlreadyInUseException, CollectionNameAlreadyInUseException {
@@ -21,7 +27,9 @@ public class CollectionDAODemo implements CollectionDAO {
         }
         collections.add(collection);
     }
-
+    /**Cerca la collezione con il link corrispondente.
+     Se trovata, imposta approved = true e la restituisce.
+     Se non trovata, restituisce null.*/
     @Override
     public Collection approveCollection(Collection collection) {
         for (Collection c : collections) {
@@ -32,7 +40,7 @@ public class CollectionDAODemo implements CollectionDAO {
         }
         return null;
     }
-
+    //Rimuove la collezione con il link corrispondente dalla lista.
     @Override
     public void deleteCollection(Collection collection) {
         collections.removeIf(c -> c.getLink().equals(collection.getLink()));

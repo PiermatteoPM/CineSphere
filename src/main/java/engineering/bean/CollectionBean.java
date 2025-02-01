@@ -16,7 +16,9 @@ public class CollectionBean {
 
     public CollectionBean() {
     }
-
+    /**Se il metodo rileva un problema (ad esempio, un link non valido), invece di
+     * gestirlo direttamente, "avvisa" chi lo chiama che potrebbe verificarsi
+     * un errore, e lascia a loro la gestione dell'eccezione. Questo il throws e nome_eccezione*/
     public CollectionBean(String email, String username, String collectionName, String link, List<String> collectionGenre, boolean approved) throws LinkIsNotValidException {
         setEmail(email);
         setLink(link);
@@ -30,11 +32,15 @@ public class CollectionBean {
         this(email,username,collectionName,link, collectionGenre, approved);
         setId(id);
     }
+    /**getter e setter*/
 
     public void setId(String id) {
         this.id = id;
     }
+    /**setta il link e può dire a chi lo chiama che si può, verificare un eccezione, in questo caso lanciata
+     * se il link non è valido. Altrimenti setta il link normalmente*/
     public void setLink(String link) throws LinkIsNotValidException {
+        /**funzione che si trova sotto, per validare il link*/
         if(isValidLink(link)){
             this.link = link;
         } else {
@@ -79,7 +85,7 @@ public class CollectionBean {
         return id;
     }
 
-
+    /**funzione che permette di validare il link, ce un import sopra*/
     private boolean isValidLink(String input) {
         UrlValidator urlValidator = new UrlValidator();
         return urlValidator.isValid(input);

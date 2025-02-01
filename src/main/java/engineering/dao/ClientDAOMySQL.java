@@ -18,15 +18,16 @@ public class ClientDAOMySQL implements ClientDAO {
     /** Metodo per inserire un User nel database al momento della registrazione
      * viene effettuato il controllo sulla email scelta e sull'username scelto */
     public void insertClient(Login registration) throws EmailAlreadyInUseException, UsernameAlreadyInUseException {
-
         Statement stmt = null;
         Connection conn;
         ResultSet rs = null;
 
         try {
+            // Ottiene la connessione al database
             conn = Connect.getInstance().getDBConnection();
             stmt = conn.createStatement();
 
+            // Controlla se l'email esiste già
             String email = registration.getEmail();
             rs = QueryLogin.loginUser(stmt, email);
             assert rs != null;
@@ -34,7 +35,9 @@ public class ClientDAOMySQL implements ClientDAO {
                 throw new EmailAlreadyInUseException();
             }
             rs.close();
-
+            /**Questo è un controllo che verifica che resultSet non sia nullo.
+             L'uso di assert è una forma di verifica durante l'esecuzione per assicurarsi che la query abbia restituito un risultato valido.*/
+            // Controlla se l'username esiste già
             String username = registration.getUsername();
             rs = QueryLogin.loginUserByUsername(stmt, username);
             assert rs != null;
@@ -43,35 +46,36 @@ public class ClientDAOMySQL implements ClientDAO {
             }
             rs.close();
 
+            // Registra il nuovo utente nel database
             QueryLogin.registerUser(stmt, registration);
-
         } catch (SQLException e) {
             handleDAOException(e);
         } finally {
-            // Chiusura delle risorse
-            closeResources(stmt,rs);
+            // Chiude le risorse aperte
+            closeResources(stmt, rs);
         }
     }
-
     public Client loadClient(Login login) throws UserDoesNotExistException {
-
         Statement stmt = null;
         ResultSet resultSet = null;
-
         Connection conn;
 
+        // Dichiarazione delle variabili da riempire con i dati del DB
         String username = "";
         String email = "";
         boolean supervisor = false;
-
         List<String> preferences = new ArrayList<>();
 
         try {
+            // Ottiene la connessione al database
             conn = Connect.getInstance().getDBConnection();
             stmt = conn.createStatement();
 
+            /**Controlla se ci sono righe nel ResultSet.
+             Se next() restituisce true, significa che l'utente esiste nel database e possiamo estrarne i dati.
+             Se false, l'utente non esiste e viene lanciata un'eccezione.*/
+            // Recupera i dati dell'utente
             resultSet = QueryLogin.loginUser(stmt, login.getEmail());
-
             assert resultSet != null;
             if (resultSet.next()) {
                 username = resultSet.getString(USERNAME);
@@ -81,24 +85,23 @@ public class ClientDAOMySQL implements ClientDAO {
                 throw new UserDoesNotExistException();
             }
 
+            // Recupera le preferenze dell'utente
             resultSet = QueryLogin.retrivePrefByEmail(stmt, login.getEmail());
-
             if (resultSet.next()) {
                 preferences = GenreManager.retriveGenre(resultSet);
             }
-
-        } catch(SQLException e){
+        } catch (SQLException e) {
             handleDAOException(e);
         } finally {
-            // Chiusura delle risorse
-            closeResources(stmt,resultSet);
+            // Chiude le risorse aperte
+            closeResources(stmt, resultSet);
         }
 
-        if(supervisor){
-            return new Supervisor(username,email,preferences);
-
+        // Restituisce un oggetto Supervisor o User a seconda del tipo di utente
+        if (supervisor) {
+            return new Supervisor(username, email, preferences);
         } else {
-            return new User(username,email,preferences);
+            return new User(username, email, preferences);
         }
     }
 
@@ -235,5 +238,4 @@ public class ClientDAOMySQL implements ClientDAO {
             handleDAOException(e);
         }
     }
-
 }

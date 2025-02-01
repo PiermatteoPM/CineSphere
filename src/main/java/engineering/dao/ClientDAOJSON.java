@@ -10,7 +10,10 @@ import java.nio.file.*;
 import java.util.stream.Stream;
 
 public class ClientDAOJSON implements ClientDAO {
+    /**BASE_DIRECTORY rappresenta la directory di base in cui sono salvati i dati degli utenti.
+     Il valore viene preso dalla classe ConfigurationJSON.*/
     private static final String BASE_DIRECTORY = ConfigurationJSON.USER_BASE_DIRECTORY;
+
 
     public void insertClient(Login login) throws EmailAlreadyInUseException, UsernameAlreadyInUseException {
         try {
@@ -33,7 +36,7 @@ public class ClientDAOJSON implements ClientDAO {
             Path userInfoFile = userDirectory.resolve(ConfigurationJSON.USER_INFO_FILE_NAME);
 
             // Serializza l'oggetto Login in formato JSON e scrivi nel file
-            String json = new GsonBuilder().setPrettyPrinting().create().toJson(login);
+            String json = new GsonBuilder().setPrettyPrinting().create().toJson(login); //Converte l'oggetto Login in JSON.
             Files.writeString(userInfoFile, json);
 
             Printer.logPrint("ClientDAO: Utente inserito con successo!");
@@ -42,14 +45,15 @@ public class ClientDAOJSON implements ClientDAO {
         }
     }
 
-
+    /**Questo metodo prende le info di un utente dal file JSON.*/
     public Client loadClient(Login login) throws UserDoesNotExistException {
         try {
+            //cerca il file che dovrebbe trovarsi in BASE_DIRECTORY/{email}/userInfo.json.
             Path userInfoFile = Paths.get(BASE_DIRECTORY, login.getEmail(), ConfigurationJSON.USER_INFO_FILE_NAME);
 
             if (Files.exists(userInfoFile)) {
-                String content = Files.readString(userInfoFile);
-                return parseClient(content);
+                String content = Files.readString(userInfoFile); //Files.readString(userInfoFile) legge il contenuto del file JSON
+                return parseClient(content); //parseClient(content) converte il JSON in un oggetto Client
             } else {
                 Printer.logPrint("ClientDAO: Utente non trovato");
                 throw new UserDoesNotExistException();
@@ -60,11 +64,12 @@ public class ClientDAOJSON implements ClientDAO {
 
         return null;
     }
-
+    /**Converte una stringa JSON in un oggetto Client, determinando se è un User o un Supervisor.*/
     private Client parseClient(String content) {
+        //Crea un oggetto Gson e legge il JSON come JsonObject
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonObject jsonObject = gson.fromJson(content, JsonObject.class);
-
+        //Controlla se l'utente è un supervisore
         boolean isSupervisor = jsonObject.getAsJsonPrimitive("supervisor").getAsBoolean();
 
         if (isSupervisor) {
@@ -73,11 +78,11 @@ public class ClientDAOJSON implements ClientDAO {
             return parseUser(content);
         }
     }
-
+    //analizza user
     private User parseUser(String content) {
         return new GsonBuilder().setPrettyPrinting().create().fromJson(content, User.class);
     }
-
+    //analizza supervisor
     private Supervisor parseSupervisor(String content) {
         return new GsonBuilder().setPrettyPrinting().create().fromJson(content, Supervisor.class);
     }

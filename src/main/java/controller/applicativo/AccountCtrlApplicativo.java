@@ -8,14 +8,37 @@ import engineering.pattern.abstract_factory.DAOFactory;
 import engineering.pattern.observer.CollectionCollectionss;
 import model.*;
 import model.Collection;
+//come funziona il MVC
+/**L'utente invia una richiesta → Il Controller la riceve.
+ Il Controller chiama il Model per ottenere i dati.
+ Il Model interroga il DAO, che recupera i dati dal database.
+ Il DAO restituisce i dati sotto forma di Bean.
+ Il Model passa i dati al Controller.
+ Il Controller passa i dati alla View.
+ La View visualizza i dati all’utente.*/
+
+
 
 import java.util.*;
+/**Questa classe fornisce tre funzionalità principali:
 
+ Recuperare tutte le collezioni di un utente (retrieveCollectionss)
+ Aggiornare i generi preferiti dell'utente (updateGenreUser)
+ Eliminare una collezione (deleteCollection)*/
 public class AccountCtrlApplicativo {
 
     /**
      * Recupera tutte le collection globali by username
      */
+    /**1. Metodo retrieveCollectionss(ClientBean clientBean)
+     Scopo
+     Recupera tutte le collezioni globali associate a un utente, basandosi sulla sua email.
+
+     Funzionamento
+     Ottiene l'istanza del DAO CollectionDAO tramite DAOFactory.
+     Recupera la lista delle collezioni dall'email dell'utente.
+     Converte ogni oggetto Collection in CollectionBean (Bean di trasferimento dati).
+     Restituisce la lista di CollectionBean.*/
     public List<CollectionBean> retrieveCollectionss(ClientBean clientBean) {
         CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
         String email = clientBean.getEmail();
@@ -38,6 +61,15 @@ public class AccountCtrlApplicativo {
         return collectionssBean;
     }
 
+    /**2. Metodo updateGenreUser(ClientBean clientBean)
+     Scopo
+     Aggiorna le preferenze di genere dell'utente nel database.
+
+     Funzionamento
+     Ottiene l'istanza del DAO ClientDAO tramite DAOFactory.
+     Crea un oggetto di tipo Client, distinguendo tra Supervisor e User (pattern eredità).
+     Invia l'oggetto Client al DAO per aggiornare le preferenze nel database.*/
+
     /** Utilizzata per aggiornare i generi preferiti dell'utente in caso in cui prema il bottone Salva */
     public void updateGenreUser(ClientBean clientBean){
         ClientDAO dao = DAOFactory.getDAOFactory().createClientDAO();         // Crea l'istanza corretta del DAO (Impostata nel file di configurazione)
@@ -52,6 +84,18 @@ public class AccountCtrlApplicativo {
         // Invio utente model al DAO
         dao.updateGenreClient(client);
     }
+
+    /** Metodo deleteCollection(CollectionBean cb)
+     Scopo
+     Permette all'autore di eliminare una collezione.
+     Nota: questa funzionalità non è implementata nel front-end, ma solo nel back-end.
+
+     Funzionamento
+     Ottiene l'istanza di CollectionDAO tramite DAOFactory.
+     Converte il CollectionBean in un oggetto Collection.
+     Chiama il metodo deleteCollection() per rimuovere la collezione dal database.
+     Se la collezione era approvata, viene anche rimossa dalla home tramite Observer Pattern.*/
+
 
     /** Utilizzata per permettere all'autore di eliminare le collection
      * Non è stato implementata l'eliminazione nel front-end, ma si nel back-end */
@@ -75,3 +119,14 @@ public class AccountCtrlApplicativo {
         Printer.logPrint(e.getMessage());
     }
 }
+/**Pattern Utilizzati
+ Abstract Factory (DAOFactory)
+
+ Permette di creare i DAO giusti in base alla configurazione del sistema.
+ Observer Pattern (CollectionCollectionss)
+
+ Se una collezione viene eliminata, viene aggiornata la home page rimuovendo la collezione anche dalla vista.
+ Bean (DTO - Data Transfer Object)
+
+ Usa ClientBean e CollectionBean per il trasferimento dei dati tra i livelli.
+ */

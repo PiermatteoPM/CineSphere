@@ -12,7 +12,29 @@ import model.Collection;
 
 import java.util.*;
 
+/**Analisi della classe PendingCollectionCtrlApplicativo
+ Questa classe è un controller applicativo che gestisce le collezioni in attesa di approvazione (pending collections).
+ Si occupa di:
+
+ Approvare una collezione.
+ Recuperare la lista delle collezioni in attesa.
+ Rifiutare una collezione.
+ Inviare notifiche agli utenti.
+
+ Segue l'architettura MVC (Model-View-Controller) e utilizza i design pattern Abstract Factory e Observer.*/
+
 public class PendingCollectionCtrlApplicativo {
+
+    /**1. approveCollection(CollectionBean cb)
+     Scopo:
+     Approva una collezione e la aggiunge alla home page.
+
+     Funzionamento:
+     Ottiene un'istanza di CollectionDAO tramite DAOFactory.
+     Crea un oggetto Collection (Model) con i dati della CollectionBean ricevuta.
+     Chiama approveCollection(collection) nel DAO, che imposta il flag approved = true.
+     Aggiorna il bean (cb.setApproved(true)) per riflettere il cambiamento.
+     Utilizza il pattern Observer per aggiornare la home page, notificando CollectionCollectionss dell'approvazione.*/
 
     public void approveCollection(CollectionBean cb){
         CollectionDAO dao = DAOFactory.getDAOFactory().createCollectionDAO();
@@ -28,6 +50,17 @@ public class PendingCollectionCtrlApplicativo {
         CollectionCollectionss collectionCollection = CollectionCollectionss.getInstance();
         collectionCollection.addCollection(collection);
     }
+
+    /**2. retrieveCollectionss()
+     Scopo:
+     Recupera tutte le collezioni in attesa di approvazione dal database.
+
+     Funzionamento:
+     Ottiene un'istanza di CollectionDAO tramite DAOFactory.
+     Recupera la lista di collezioni pending con dao.retrievePendingCollectionss().
+     Converte gli oggetti Collection in CollectionBean per la UI.
+     Gestisce eventuali errori (LinkIsNotValidException) usando Printer.logPrint().
+     Restituisce la lista di CollectionBean alla view.*/
 
     /** Recupera tutte le collection globali, sia approvate che non */
     public List<CollectionBean> retrieveCollectionss(){

@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Login extends Client {
 
-    /** Utilizzato in fase di login */
+    /** Utilizzato in fase di login, metodi ereditati da client*/
     public Login(String email, String password){
         setEmail(email);
         setPassword(password);
@@ -15,11 +15,7 @@ public class Login extends Client {
         super(username, email, preferences);
         setPassword(password);
     }
-
-    public Login() {
-
-    }
-
-
+    /** permette di creare un oggetto Login senza inizializzare subito i dati */
+    public Login() {}
 
 }

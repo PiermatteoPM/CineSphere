@@ -18,14 +18,6 @@ public class Queries {
     public static final String SEARCH_USERNAME = "SELECT * FROM user WHERE username = '%s' ";
     public static final String SEARCH_EMAIL = "SELECT * FROM user WHERE email = '%s' ";
 
-    public static final String UPDATE_GENERI_USER =
-            "UPDATE generi_user SET " +
-                    "Azione = %d, Avventura = %d, Animazione = %d, Biografico = %d, Commedia = %d, Poliziesco = %d, Documentario = %d, " +
-                    "Drammatico = %d, PerFamiglie = %d, Fantastico = %d, Noir = %d, GiocoAPremiTelevisivo = %d, Storico = %d, " +
-                    "Horror = %d, Musica = %d, Musical = %d, Giallo = %d, Telegiornale = %d, Reality = %d, Sentimentale = %d, " +
-                    "Fantascienza = %d, Cortometraggio = %d, Sportivo = %d, TalkShow = %d, Thriller = %d, Guerra = %d, Western = %d " +
-                    "WHERE email = '%s'";
-
     /* ---------- QUERY COLLECTION ---------- */
     public static final String INSERT_COLLECTION_USER = "INSERT INTO collection_utente (nameCollection, email, username, link, " +
             "approved, Azione, Avventura, Animazione, Biografico, Commedia, Poliziesco, Documentario, Drammatico, PerFamiglie, Fantastico, Noir, GiocoAPremiTelevisivo, Storico, Horror, Musica, Musical, Giallo, Telegiornale, Reality, Sentimentale, Fantascienza, Cortometraggio, Sportivo, TalkShow, Thriller, Guerra, Western) VALUES ('%s','%s','%s','%s','%d', %s)";
