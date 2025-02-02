@@ -114,7 +114,7 @@ public class RegistrazioneCtrlGrafico implements Initializable {
     @FXML
     protected void onRegisterClick(ActionEvent event){
         LoginBean regBean = new LoginBean();
-        getData(regBean);
+        getData(regBean); /*raccoglie e valida i dati dell'utente dalla GUI e li salva in LoginBean. Se i dati sono validi, regBean viene passato al controller applicativo (RegistrazioneCtrlApplicativo) per registrare l'utente*/
 
         if (regBean.getEmail() != null && !regBean.getEmail().isEmpty()) {
 
