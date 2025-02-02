@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import view.first.utils.SceneController;
 
+
 public class TextPopUp {
     @FXML
     private Label adviceText;
@@ -16,7 +17,7 @@ public class TextPopUp {
 
     public void setAttributes(SceneController sceneController) {
         // Deve avere un userBean per compilare tutte le informazioni
-        this.sceneController = sceneController;
+        this.sceneController = sceneController; /*Usa un SceneController per gestire la navigazione tra scene in JavaFX.*/
     }
 
     /** Utilizzato per impostare il testo nel pop-up in caso di riuso di questa classe per altri avvisi */
