@@ -41,4 +41,4 @@ L'applicazione implementa due tipi di persistenza: JSON e MySQL, offrendo flessi
 - **Backend**: Java per la logica del server.
 - **Frontend**: JavaFX per l'interfaccia utente.
 - **Database**: MySQL per memorizzare informazioni su collezioni e utenti.
-- **Persistenza**: Implementata tramite JSON e MySQL.
+- **Persistenza**: Implementata tramite JSON, MYSQL, DEMO.
